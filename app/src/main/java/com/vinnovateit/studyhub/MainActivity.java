@@ -4,7 +4,12 @@ import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.UnsupportedMimeTypeException;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -17,7 +22,10 @@ import android.app.ProgressDialog;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
+
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -29,6 +37,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ListView;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -42,13 +52,48 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button b=findViewById(R.id.button);
-        TextView t=findViewById(R.id.textView3);
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
+            try {
+                String uri="https://studiesguide.herokuapp.com/courses/603f5ef0ea3b8c0004900a4a";
+                Document doc= (Document) Jsoup.connect(uri).get();
+                Elements data=doc.select("div.note");
+                Elements p= data.select("p");
+               // Log.i("details",data.toString());
+                for (Element x: p) {
+                    Log.i("details",x.text());
+                    Log.i("link", x.select("a").attr("abs:href"));
+
+
+                }
+
+//                int size=data.size();
+//            for(int i=0;i<size;i++)
+//            {
+//                Element notes=data.select("p").;
+//                Log.i("details",notes.toString());
+//            }
+
+
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+//        TextView t=findViewById(R.id.textView3);
         ArrayList<String> list1= new ArrayList<String>();
         String[] branches = new String[10];
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                t.setText("");
+//                t.setText("");
                 String url="https://studyhubvinapi.herokuapp.com/posts";
                 ArrayList<String> list1 = new ArrayList<String>();
                 StringRequest stringRequest=new StringRequest(url, new Response.Listener<String>() {
@@ -66,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.i("branch: ",branch);
 
                             }
-                            t.setText(list1.toString());
+//                            t.setText(list1.toString());
                             JSONArray mJsonArrayProperty = mJsonObject.getJSONArray("cse");
                             for (int i = 0; i < mJsonArrayProperty.length(); i++) {
                                 JSONObject mJsonObjectProperty = mJsonArrayProperty.getJSONObject(i);
@@ -81,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
+
                     }
                 },new Response.ErrorListener() {
                     @Override
@@ -92,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
                 requestQueue.add(stringRequest);
             }
         });
+
+
 
     }
 
