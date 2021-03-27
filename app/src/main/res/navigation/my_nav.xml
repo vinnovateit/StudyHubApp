@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/branchFragment">
+    <fragment
+        android:id="@+id/branchFragment"
+        android:name="com.vinnovateit.studyhub.BranchFragment"
+        android:label="fragment_branch"
+        tools:layout="@layout/fragment_branch" >
+        <action
+            android:id="@+id/action_branchFragment_to_coursesFragment2"
+            app:destination="@id/coursesFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/coursesFragment2"
+        android:name="com.vinnovateit.studyhub.CoursesFragment"
+        android:label="fragment_courses"
+        tools:layout="@layout/fragment_courses" >
+        <action
+            android:id="@+id/action_coursesFragment2_to_subjectFragment"
+            app:destination="@id/subjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subjectFragment"
+        android:name="com.vinnovateit.studyhub.SubjectFragment"
+        android:label="fragment_subject"
+        tools:layout="@layout/fragment_subject" />
+</navigation>
