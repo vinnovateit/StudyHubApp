@@ -80,15 +80,15 @@
             android:layout_marginStart="20dp"
             android:background="#2E97AA"
             />
+
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="@string/cse"
-            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
-            android:textSize="40sp"
+            android:layout_marginTop="25dp"
+            android:text="@string/cse"
             android:textColor="@color/black"
-            />
+            android:textSize="40sp" />
     </androidx.cardview.widget.CardView><androidx.cardview.widget.CardView
         android:id="@+id/subject2"
         android:layout_width="150dp"
@@ -106,16 +106,16 @@
             android:layout_marginStart="20dp"
             android:background="#fff"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="@string/it"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="45dp"
-            android:textSize="40sp"
-            android:textColor="@color/black"
-            />
-    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/it"
+        android:textColor="@color/black"
+        android:textSize="40sp" />
+</androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:id="@+id/subject3"
         android:layout_width="150dp"
@@ -133,14 +133,14 @@
             android:layout_marginStart="20dp"
             android:background="#FFB17B"
             />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="@string/uc"
-            android:layout_marginTop="25dp"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
-            android:textSize="40sp"
+            android:layout_marginTop="25dp"
+            android:text="@string/uc"
             android:textColor="@color/black"
-            />
+            android:textSize="40sp" />
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
