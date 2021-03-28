@@ -3,12 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="50dp"
     tools:context=".SubjectFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/notescard"
+        android:layout_width="403dp"
+        android:layout_height="277dp"
+        android:layout_marginLeft="5dp">
 
+        <ScrollView
+            android:layout_width="385dp"
+            android:layout_height="265dp"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:singleLine="false"
+                android:textAlignment="gravity"
+                android:textSize="12sp" />
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
 </FrameLayout>
