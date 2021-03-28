@@ -12,9 +12,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
         app:cardBackgroundColor="#B4D7EA"
         app:cardCornerRadius="25dp"
+        android:layout_marginBottom="-25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -34,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:fontFamily="@font/gothammedium"
                 android:text="@string/subject_name"
                 android:textColor="@color/black"
                 android:textSize="17sp" />
@@ -44,29 +45,70 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/gothammedium"
                 android:text="@string/course_code_ite1004"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>
-        <!--
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/credits_4"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="85dp"
+            android:fontFamily="@font/gothammedium"
+            android:text="@string/credits_4"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:layout_marginStart="15dp"
-            />
+            android:textSize="15sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/modules_8"
-            android:layout_marginTop="115dp"
-            android:textColor="@color/black"
-            android:textSize="15sp"
             android:layout_marginStart="15dp"
-            /> -->
+            android:layout_marginTop="115dp"
+            android:fontFamily="@font/gothammedium"
+            android:text="@string/modules_8"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/expandable"
+        android:layout_width="205dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/course_cv"
+        android:layout_marginStart="10dp"
+        app:cardBackgroundColor="#3B82F6"
+        app:cardCornerRadius="25dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/descText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/see_detailed_description"
+                android:textColor="@color/black"
+                android:fontFamily="@font/gothammedium"
+                android:textSize="10sp"
+               android:padding="5dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:layout_marginTop="1dp"
+                />
+            <ImageView
+                android:id="@+id/plusShowMore"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_add"
+                android:layout_toEndOf="@+id/descText"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="2dp"
+                />
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 

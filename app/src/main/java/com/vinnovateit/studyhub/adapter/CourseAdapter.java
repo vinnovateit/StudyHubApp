@@ -54,7 +54,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             super(itemView);
             name=itemView.findViewById(R.id.subjectName);
             details=itemView.findViewById(R.id.subjectDetails);
-            course_cv=itemView.findViewById(R.id.course_cv);
+            course_cv=itemView.findViewById(R.id.expandable);
             this.onCourseListener=onCourseListener;
             itemView.setOnClickListener(this);
         }

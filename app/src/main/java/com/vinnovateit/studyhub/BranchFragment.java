@@ -27,32 +27,23 @@ public class BranchFragment extends Fragment {
         it=view.findViewById(R.id.it);
         cse=view.findViewById(R.id.cse);
         uc=view.findViewById(R.id.uc);
-        it.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("branch","/branch/it");
-                bundle.putString("name","IT");
-                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2,bundle);
-            }
+        it.setOnClickListener(view13 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("branch","/branch/it");
+            bundle.putString("name","IT");
+            Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2,bundle);
         });
-        cse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("branch","/branch/cse");
-                bundle.putString("name","CSE");
-                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2,bundle);
-            }
+        cse.setOnClickListener(view12 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("branch","/branch/cse");
+            bundle.putString("name","CSE");
+            Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2,bundle);
         });
-        uc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("branch","/branch/uc");
-                bundle.putString("name","U.C.");
-                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2,bundle);
-            }
+        uc.setOnClickListener(view1 -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("branch","/branch/uc");
+            bundle.putString("name","U.C.");
+            Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2,bundle);
         });
         return view;
     }
