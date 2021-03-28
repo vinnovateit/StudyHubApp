@@ -3,6 +3,7 @@ package com.vinnovateit.studyhub;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -25,7 +26,7 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoursesFragment extends Fragment {
+public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseListener {
 
     TextView name,details,branchHead;
     RecyclerView coursesRecyler;
@@ -115,7 +116,13 @@ public class CoursesFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         coursesRecyler.setLayoutManager(layoutManager);
         coursesRecyler.setHasFixedSize(true);
-        courseAdapter = new CourseAdapter(requireContext(),courseList);
+        courseAdapter = new CourseAdapter(requireContext(),courseList,this);
         coursesRecyler.setAdapter(courseAdapter);
+    }
+    @Override
+    public void onCourseClick(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString("detailsURL",courseList.get(position).getDescUrl());
+        Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_subjectFragment,bundle);
     }
 }

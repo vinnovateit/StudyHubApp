@@ -1,65 +1,59 @@
 package com.vinnovateit.studyhub;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BranchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class BranchFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    public CardView c;
-    public BranchFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BranchFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BranchFragment newInstance(String param1, String param2) {
-        BranchFragment fragment = new BranchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
-
+    CardView it,cse,uc;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_branch,
                 container, false);
-
+        it=view.findViewById(R.id.it);
+        cse=view.findViewById(R.id.cse);
+        uc=view.findViewById(R.id.uc);
+        it.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("branch","/branch/it");
+                bundle.putString("name","IT");
+                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2,bundle);
+            }
+        });
+        cse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("branch","/branch/cse");
+                bundle.putString("name","CSE");
+                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2,bundle);
+            }
+        });
+        uc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("branch","/branch/uc");
+                bundle.putString("name","U.C.");
+                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2,bundle);
+            }
+        });
         return view;
     }
 }

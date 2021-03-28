@@ -19,17 +19,19 @@ import java.util.List;
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
     Context context;
     List<Course> courseList;
+    private OnCourseListener mOnCourseListener;
 
-    public CourseAdapter(Context context, List<Course> courseList) {
+    public CourseAdapter(Context context, List<Course> courseList, OnCourseListener mOnCourseListener) {
         this.context = context;
         this.courseList = courseList;
+        this.mOnCourseListener = mOnCourseListener;
     }
 
     @NonNull
     @Override
     public CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.courses, parent, false);
-        return new CourseViewHolder(view);
+        return new CourseViewHolder(view,mOnCourseListener);
     }
 
     @Override
@@ -42,14 +44,26 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     public int getItemCount() {
         return courseList.size();
     }
-    public static final class CourseViewHolder extends RecyclerView.ViewHolder {
+    public static final class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView name,details;
+        CardView course_cv;
+        OnCourseListener onCourseListener;
 
-        public CourseViewHolder(@NonNull View itemView) {
+        public CourseViewHolder(@NonNull View itemView, OnCourseListener onCourseListener) {
             super(itemView);
             name=itemView.findViewById(R.id.subjectName);
             details=itemView.findViewById(R.id.subjectDetails);
+            course_cv=itemView.findViewById(R.id.course_cv);
+            this.onCourseListener=onCourseListener;
+            itemView.setOnClickListener(this);
         }
+        @Override
+        public void onClick(View v) {
+            onCourseListener.onCourseClick(getAdapterPosition());
+        }
+    }
+    public interface OnCourseListener{
+        void onCourseClick(int position);
     }
 }
