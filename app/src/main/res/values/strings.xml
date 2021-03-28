@@ -2,4 +2,9 @@
     <string name="app_name">Study Hub</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_courses">Search Courses</string>
+    <string name="cse">CSE</string>
+    <string name="courses">COURSES</string>
+    <string name="it">IT</string>
+    <string name="uc">UC</string>
 </resources>

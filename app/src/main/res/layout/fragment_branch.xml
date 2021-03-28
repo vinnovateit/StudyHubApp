@@ -1,10 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BranchFragment">
 
+    <ImageView
+        android:id="@+id/studyImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@color/purple_500"
+         />
 
+    <ImageView
+        android:id="@+id/toggle"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@color/teal_200" />
 
-</FrameLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/studyImage"
+        android:layout_margin="20dp"
+        app:cardBackgroundColor="#C5C4C4"
+        app:cardCornerRadius="10dp">
+
+        <ImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="#FFEB3B" />
+
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:hint="@string/search_courses"
+            android:inputType="text"
+             />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/coursesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardView"
+        android:layout_centerInParent="true"
+        android:text="@string/courses"
+        android:textSize="40sp"
+        android:textColor="@color/teal_200"
+        android:layout_marginTop="40dp"
+        />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/subject1"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/coursesTextView"
+        app:cardBackgroundColor="#8BE4DA"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="15dp"
+        >
+        <View
+            android:layout_width="5dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:background="#2E97AA"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/cse"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="45dp"
+            android:textSize="40sp"
+            android:textColor="@color/black"
+            />
+    </androidx.cardview.widget.CardView><androidx.cardview.widget.CardView
+        android:id="@+id/subject2"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/subject1"
+        app:cardBackgroundColor="#3B82F6"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="15dp"
+        >
+        <View
+            android:layout_width="5dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:background="#fff"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/it"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="45dp"
+            android:textSize="40sp"
+            android:textColor="@color/black"
+            />
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/subject3"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/subject2"
+        app:cardBackgroundColor="#D39494"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="15dp"
+        >
+        <View
+            android:layout_width="5dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:background="#FFB17B"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/uc"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="45dp"
+            android:textSize="40sp"
+            android:textColor="@color/black"
+            />
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
