@@ -12,6 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -45,8 +55,47 @@ public class SubjectFragment extends Fragment {
 
         //This is your link to be parsed.
         courseApi = "https://studiesguide.herokuapp.com/courses/studyhubapp/"+courseCode;
+        StringRequest stringRequest = new StringRequest(courseApi, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject j1=new JSONObject(response);
+                    JSONArray j2=j1.getJSONArray("courses");
+                    //   for(int j=0;j<9;j++) {
+                    // System.out.println("SUBJECT :"+Integer.toString(j));
+                    JSONObject mJsonObject = j2.getJSONObject(0);
+                    String oneObjectsItem1 = mJsonObject.getString("name");
+                    System.out.println("Course Name:"+oneObjectsItem1);
+                    JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
+                    for (int i = 0; i < mJsonArrayProperty1.length(); i++) {
+
+                        JSONObject oneObject = mJsonArrayProperty1.getJSONObject(i);
+                        String modno = oneObject.getString("num");
+                        if(!modno.equals(""))
+                        {
+                            System.out.println("MODULE:"+modno);
+                        }
+                        String oneObjectsItem = oneObject.getString("markdown");
+                        System.out.println(oneObjectsItem);
+                        System.out.println("\n");
+
+                    }
 
 
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("branch: ", "error");
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
+        requestQueue.add(stringRequest);
 
         try{
         //String uri = "https://studyhub.vinnovateit.com/courses/603f82d34b48f40004358e53";
