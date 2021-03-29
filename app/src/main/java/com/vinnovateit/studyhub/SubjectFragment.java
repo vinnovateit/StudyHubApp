@@ -17,6 +17,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 public class SubjectFragment extends Fragment {
+    String branchName;
+    Integer subjectPos,arraySize;
+    String courseApi;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,7 +35,16 @@ public class SubjectFragment extends Fragment {
         String subDet = bundle.getString("subjectDetails");
         String[] words=subDet.split("\\s");
 
+        String courseCode = words[3].toLowerCase();
+
         subjectName.setText(subHead+" "+words[3]);
+
+        //branchName = bundle.getString("branchName");
+        //subjectPos = bundle.getInt("subjectPosition");
+        //arraySize = bundle.getInt("arraySize");
+
+        //This is your link to be parsed.
+        courseApi = "https://studiesguide.herokuapp.com/courses/studyhubapp/"+courseCode;
 
 
 

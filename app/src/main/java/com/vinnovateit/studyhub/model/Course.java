@@ -4,11 +4,13 @@ public class Course {
     String header;
     String details;
     String descUrl;
+    Integer pos;
 
-    public Course(String header, String details, String descUrl) {
+    public Course(String header, String details, String descUrl, Integer pos) {
         this.header = header;
         this.details = details;
         this.descUrl = descUrl;
+        this.pos = pos;
     }
 
     public String getHeader() {
@@ -33,5 +35,13 @@ public class Course {
 
     public void setDescUrl(String descUrl) {
         this.descUrl = descUrl;
+    }
+
+    public Integer getPos() {
+        return pos;
+    }
+
+    public void setPos(Integer pos) {
+        this.pos = pos;
     }
 }

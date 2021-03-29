@@ -34,6 +34,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     CourseAdapter courseAdapter;
     List<Course> courseList;
     Integer len;
+    String subject;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +50,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         String branch = bundle.getString("branch");
         String branchName=bundle.getString("name");
         branchHead.setText("BRANCH - "+branchName);
+        subject=bundle.getString("subject");
 
         String str= "";
         ArrayList<String> header = new ArrayList<String>();
@@ -100,7 +102,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         courseList=new ArrayList<>();
 
         for(int i=0;i<len;i++){
-            courseList.add(new Course(header.get(i),course.get(i),courseDetails.get(i)));
+            courseList.add(new Course(header.get(i),course.get(i),courseDetails.get(i),i));
         }
         setCourseRecycler(courseList);
         return view;
@@ -119,6 +121,9 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         bundle.putString("detailsURL",courseList.get(position).getDescUrl());
         bundle.putString("subjectHeader",courseList.get(position).getHeader());
         bundle.putString("subjectDetails",courseList.get(position).getDetails());
+        bundle.putInt("subjectPosition",courseList.get(position).getPos());
+        bundle.putString("branchName",subject);
+        bundle.putInt("arraySize",len);
         Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_subjectFragment,bundle);
     }
 }
