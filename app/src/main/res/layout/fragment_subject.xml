@@ -30,7 +30,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/notescard"
         android:layout_width="wrap_content"
-        android:layout_height="277dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         app:cardCornerRadius="35dp"
         app:cardBackgroundColor="@color/background"
@@ -39,7 +39,7 @@
 
         <ScrollView
             android:layout_width="385dp"
-            android:layout_height="265dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp">
 
             <TextView
@@ -55,7 +55,9 @@
                 android:layout_marginTop="16dp"
                 android:paddingStart="11dp"
                 android:textColor="@color/mainText"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:maxHeight="277dp"
+                />
         </ScrollView>
     </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
