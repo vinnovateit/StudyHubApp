@@ -3,14 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:id="@+id/subLayout">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/modulesDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/background"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/gothammedium"
+            android:gravity="center"
+            android:paddingStart="11dp"
+            android:paddingTop="17dp"
+            android:paddingEnd="11dp"
+            android:paddingBottom="21dp"
+            android:text=""
+            android:textColor="@color/mainText"
+            android:textSize="12sp" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/modulesDesc"
         app:cardBackgroundColor="#3B82F6"
-        app:cardCornerRadius="25dp">
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:id="@+id/above"
@@ -25,53 +52,29 @@
                 <TextView
                     android:id="@+id/moduleTextView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="43dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:fontFamily="@font/gothammedium"
+                    android:gravity="left|center"
                     android:text="@string/module_1"
                     android:textColor="@color/white"
                     android:textSize="24sp" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/expandPlease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/moduleTextView"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="30dp"
+                    android:backgroundTint="@android:color/transparent"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_add" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <RelativeLayout
-        android:id="@+id/expandable_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/card"
-        android:background="@color/background"
-        android:visibility="gone">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/background"
-            app:cardCornerRadius="25dp"
-            >
-
-            <TextView
-                android:layout_margin="15dp"
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/gothammedium"
-                android:textColor="@color/mainText"
-                android:textSize="12sp"
-                android:gravity="center"
-                />
-        </androidx.cardview.widget.CardView>
-    </RelativeLayout>
 </RelativeLayout>
