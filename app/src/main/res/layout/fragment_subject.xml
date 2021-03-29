@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="50dp"
-    tools:context=".SubjectFragment">
+    tools:context=".SubjectFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gothammedium"
+        android:textSize="25sp"
+        android:text=""
+        android:gravity="center"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:textColor="@color/black"
+        android:id="@+id/subjectHeader"
+        />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/notescard"
         android:layout_width="403dp"
         android:layout_height="277dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp">
 
         <ScrollView
             android:layout_width="385dp"
@@ -29,4 +43,4 @@
                 android:textStyle="bold" />
         </ScrollView>
     </androidx.cardview.widget.CardView>
-</FrameLayout>
+</LinearLayout>

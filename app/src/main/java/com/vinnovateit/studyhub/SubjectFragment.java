@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +23,20 @@ public class SubjectFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_subject,
                 container, false);
         TextView t=view.findViewById(R.id.textView5);
+        TextView subjectName=view.findViewById(R.id.subjectHeader);
         Bundle bundle = this.getArguments();
         assert bundle != null;
         String descUrl = bundle.getString("detailsURL");
+        String subHead = bundle.getString("subjectHeader");
+        subjectName.setText(subHead);
+
+        String subDet = bundle.getString("subjectDetails");
+        String[] words=subDet.split("\\s");
+        for(String w:words) {
+            Log.i("course", w);
+        }
+
+
 
         try{
         //String uri = "https://studyhub.vinnovateit.com/courses/603f82d34b48f40004358e53";

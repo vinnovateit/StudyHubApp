@@ -100,7 +100,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         courseList=new ArrayList<>();
 
         for(int i=0;i<len;i++){
-            courseList.add(new Course(header.get(i),course.get(i).toString(),courseDetails.get(i)));
+            courseList.add(new Course(header.get(i),course.get(i),courseDetails.get(i)));
         }
         setCourseRecycler(courseList);
         return view;
@@ -117,6 +117,8 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     public void onCourseClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("detailsURL",courseList.get(position).getDescUrl());
+        bundle.putString("subjectHeader",courseList.get(position).getHeader());
+        bundle.putString("subjectDetails",courseList.get(position).getDetails());
         Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_subjectFragment,bundle);
     }
 }
