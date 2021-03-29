@@ -17,8 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.airbnb.lottie.LottieAnimationView;
-
 
 public class BranchFragment extends Fragment {
     CardView it,cse,uc;
