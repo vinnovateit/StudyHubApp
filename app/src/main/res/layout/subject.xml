@@ -29,6 +29,7 @@
                 android:fontFamily="@font/gothammedium"
                 android:gravity="left"
                 android:paddingStart="11dp"
+                android:autoLink="web"
                 android:paddingTop="17dp"
                 android:paddingEnd="11dp"
                 android:paddingBottom="21dp"
