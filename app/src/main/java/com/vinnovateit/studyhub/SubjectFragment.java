@@ -76,8 +76,9 @@ public class SubjectFragment extends Fragment {
                             System.out.println("MODULE:"+modno);
                         }
                         String oneObjectsItem = oneObject.getString("markdown");
-                        System.out.println(oneObjectsItem);
-                        System.out.println("\n");
+                        String NewString = oneObjectsItem.replace("*", "");
+                        System.out.println(NewString);
+                      //  System.out.println("\n");
 
                     }
 
