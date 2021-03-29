@@ -36,7 +36,7 @@
                 android:layout_margin="15dp"
                 android:fontFamily="@font/gothammedium"
                 android:text="@string/subject_name"
-                android:textColor="@color/black"
+                android:textColor="@color/mainText"
                 android:textSize="17sp" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/gothammedium"
                 android:text="@string/course_code_ite1004"
-                android:textColor="@color/black"
+                android:textColor="@color/mainText"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -96,7 +96,7 @@
                 android:gravity="center"
                 android:padding="1dp"
                 android:text="@string/see_detailed_description"
-                android:textColor="@color/black"
+                android:textColor="@color/mainText"
                 android:textSize="10sp" />
 
             <ImageView
