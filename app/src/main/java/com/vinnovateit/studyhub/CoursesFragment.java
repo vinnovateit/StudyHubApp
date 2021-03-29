@@ -79,7 +79,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                 }
                 for (Element x: h6) {
                     if(i%3==0 && i!=0){
-                        course.add(str);
+                        course.add(str.replace("Course ",""));
                         str = "";
                     }
                     str+=x.text()+"\n\n";
