@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BranchFragment">
+    tools:context=".BranchFragment"
+    android:background="@color/background"
+    >
 
     <ImageView
         android:id="@+id/studyImage"
@@ -17,12 +19,13 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:lottie_rawRes="@raw/darkmode"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:scaleType="fitXY"
+        android:layout_alignParentEnd="true"
         />
 
     <androidx.cardview.widget.CardView
@@ -91,7 +94,7 @@
             android:layout_marginStart="75dp"
             android:layout_marginTop="25dp"
             android:text="@string/cse"
-            android:textColor="@color/black"
+            android:textColor="@color/mainText"
             android:textSize="40sp"
             android:fontFamily="@font/gothammedium"
             android:gravity="center"
@@ -120,7 +123,7 @@
         android:layout_marginStart="81dp"
         android:layout_marginTop="25dp"
         android:text="@string/it"
-        android:textColor="@color/black"
+        android:textColor="@color/mainText"
         android:textSize="40sp"
         android:fontFamily="@font/gothammedium"
         android:gravity="center"
@@ -150,7 +153,7 @@
             android:layout_marginStart="81dp"
             android:layout_marginTop="25dp"
             android:text="@string/uc"
-            android:textColor="@color/black"
+            android:textColor="@color/mainText"
             android:textSize="40sp"
             android:fontFamily="@font/gothammedium"
             android:gravity="center"

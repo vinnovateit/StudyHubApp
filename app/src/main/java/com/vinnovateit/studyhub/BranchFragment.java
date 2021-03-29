@@ -5,6 +5,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -15,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 
 public class BranchFragment extends Fragment {
@@ -47,4 +50,5 @@ public class BranchFragment extends Fragment {
         });
         return view;
     }
+
 }
