@@ -23,8 +23,10 @@
                 android:layout_height="wrap_content"
                 android:autoLink="web"
                 android:singleLine="false"
+                android:text="NOTES:"
                 android:textAlignment="gravity"
-                android:textSize="12sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </ScrollView>
     </androidx.cardview.widget.CardView>
 </FrameLayout>

@@ -1,10 +1,12 @@
 package com.vinnovateit.studyhub;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +32,19 @@ public class SubjectFragment extends Fragment {
         Document doc = (Document) Jsoup.connect(uri).get();
         Elements data = doc.select("div.note");
         Elements p = data.select("p");
+
         CardView c=view.findViewById(R.id.notescard);
         String d = "";
+       // t.setTypeface(null, Typeface.NORMAL);
+        t.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimension(R.dimen.content));
         for (Element x : p)
         {
             d += d + x.text();
-            t.setText(t.getText()+"\n"+x.text());
-            t.setText(t.getText()+"\n"+x.select("a").attr("abs:href"));
+            if(!x.text().equals("")) {
+                t.setText(t.getText()+ x.text().trim());
+            }
+            t.setText(t.getText()+"\n"+x.select("a").attr("abs:href").trim()+"\n");
         }
         if(d.equals(""))
         {
