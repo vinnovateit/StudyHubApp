@@ -5,31 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
-    android:id="@+id/subLayout">
+    android:paddingBottom="2dp">
 
+    <!-- DO NOT REMOVE THIS CARDVIEW WITH ID subLayout -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/modulesDesc"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:cardBackgroundColor="@color/background"
-        app:cardCornerRadius="10dp">
+        android:id="@+id/subLayout">
 
-        <TextView
-            android:id="@+id/description"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/modulesDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:fontFamily="@font/gothammedium"
-            android:gravity="center"
-            android:paddingStart="11dp"
-            android:paddingTop="17dp"
-            android:paddingEnd="11dp"
-            android:paddingBottom="21dp"
-            android:text=""
-            android:textColor="@color/mainText"
-            android:textSize="12sp" />
-    </androidx.cardview.widget.CardView>
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/background"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:fontFamily="@font/gothammedium"
+                android:gravity="left"
+                android:paddingStart="11dp"
+                android:paddingTop="17dp"
+                android:paddingEnd="11dp"
+                android:paddingBottom="21dp"
+                android:text=""
+                android:textColor="@color/mainText"
+                android:textSize="12sp" />
+        </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
@@ -52,7 +58,7 @@
                 <TextView
                     android:id="@+id/moduleTextView"
                     android:layout_width="wrap_content"
-                    android:layout_height="43dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
@@ -62,7 +68,7 @@
                     android:textColor="@color/white"
                     android:textSize="24sp" />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/expandPlease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -71,10 +77,10 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="30dp"
-                    android:backgroundTint="@android:color/transparent"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_add" />
             </RelativeLayout>
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
