@@ -85,7 +85,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     str+=x.text()+"\n\n";
                     i++;
                 }
-                course.add(str);
+                course.add(str.replace("Course ",""));
                 for (Element x:a) {
                     Log.i("link", x.select("a").attr("abs:href"));
                     String link=x.select("a").attr("abs:href");
