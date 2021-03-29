@@ -10,53 +10,24 @@
 
     <ImageView
         android:id="@+id/studyImage"
-        android:layout_width="60dp"
+        android:layout_width="70dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:src="@color/purple_500"
-         />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@+id/studyImage"
-        android:layout_margin="20dp"
-        app:cardBackgroundColor="#C5C4C4"
-        app:cardCornerRadius="10dp">
-
-        <ImageView
-            android:id="@+id/searchIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_search" />
-
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:hint="@string/search_courses"
-            android:background="#C5C4C4"
-            android:inputType="text"
-            android:fontFamily="@font/gothammedium"
-             />
-
-    </androidx.cardview.widget.CardView>
+        android:src="@drawable/studhub"
+        android:scaleType="fitCenter"
+        />
 
     <TextView
         android:id="@+id/coursesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cardView"
+        android:layout_below="@+id/studyImage"
         android:layout_centerInParent="true"
         android:text="@string/courses"
         android:textSize="40sp"
         android:textColor="@color/teal_200"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/gothammedium"
         />
     <androidx.cardview.widget.CardView
@@ -66,7 +37,7 @@
         android:layout_below="@+id/coursesTextView"
         app:cardBackgroundColor="#8BE4DA"
         android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="15dp"
         >
         <View
@@ -95,7 +66,7 @@
         android:layout_below="@+id/cse"
         app:cardBackgroundColor="#3B82F6"
         android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:cardCornerRadius="15dp"
         >
         <View
@@ -125,7 +96,7 @@
         android:layout_below="@+id/it"
         app:cardBackgroundColor="#D39494"
         android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:cardCornerRadius="15dp"
         >
         <View
