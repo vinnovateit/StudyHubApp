@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BranchFragment"
     android:background="@color/background"
-    >
+    tools:context=".BranchFragment">
 
     <ImageView
         android:id="@+id/studyImage"
@@ -14,9 +13,8 @@
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/studhub"
         android:scaleType="fitCenter"
-        />
+        android:src="@drawable/studhub" />
 
     <TextView
         android:id="@+id/coursesTextView"
@@ -24,99 +22,138 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/studyImage"
         android:layout_centerInParent="true"
-        android:text="@string/courses"
-        android:textSize="40sp"
-        android:textColor="@color/teal_200"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/gothammedium"
-        />
+        android:text="@string/courses"
+        android:textColor="@color/teal_200"
+        android:textSize="40sp" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cse"
         android:layout_width="250dp"
         android:layout_height="100dp"
         android:layout_below="@+id/coursesTextView"
-        app:cardBackgroundColor="#8BE4DA"
         android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
-        app:cardCornerRadius="15dp"
-        >
+        app:cardBackgroundColor="#8BE4DA"
+        app:cardCornerRadius="15dp">
+
         <View
             android:layout_width="5dp"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:background="#2E97AA"
-            />
+            android:layout_marginTop="20dp"
+            android:background="#2E97AA" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="75dp"
             android:layout_marginTop="25dp"
-            android:text="@string/cse"
-            android:textColor="@color/mainText"
-            android:textSize="40sp"
             android:fontFamily="@font/gothammedium"
             android:gravity="center"
-            />
-    </androidx.cardview.widget.CardView><androidx.cardview.widget.CardView
+            android:text="@string/cse"
+            android:textColor="@color/mainText"
+            android:textSize="40sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/it"
         android:layout_width="250dp"
         android:layout_height="100dp"
         android:layout_below="@+id/cse"
-        app:cardBackgroundColor="#3B82F6"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
-        app:cardCornerRadius="15dp"
-        >
+        app:cardBackgroundColor="#3B82F6"
+        app:cardCornerRadius="15dp">
+
         <View
             android:layout_width="5dp"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:background="#fff"
-            />
+            android:layout_marginTop="20dp"
+            android:background="#fff" />
 
-    <TextView
-        android:layout_width="68dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="81dp"
-        android:layout_marginTop="25dp"
-        android:text="@string/it"
-        android:textColor="@color/mainText"
-        android:textSize="40sp"
-        android:fontFamily="@font/gothammedium"
-        android:gravity="center"
-        />
-</androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="81dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/gothammedium"
+            android:gravity="center"
+            android:text="@string/it"
+            android:textColor="@color/mainText"
+            android:textSize="40sp" />
+    </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/uc"
         android:layout_width="250dp"
         android:layout_height="100dp"
         android:layout_below="@+id/it"
-        app:cardBackgroundColor="#D39494"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
-        app:cardCornerRadius="15dp"
-        >
+        app:cardBackgroundColor="#D39494"
+        app:cardCornerRadius="15dp">
+
         <View
             android:layout_width="5dp"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
-            android:background="#FFB17B"
-            />
+            android:layout_marginTop="20dp"
+            android:background="#FFB17B" />
 
         <TextView
             android:layout_width="74dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="81dp"
             android:layout_marginTop="25dp"
-            android:text="@string/uc"
-            android:textColor="@color/mainText"
-            android:textSize="40sp"
             android:fontFamily="@font/gothammedium"
             android:gravity="center"
-            />
+            android:text="@string/uc"
+            android:textColor="@color/mainText"
+            android:textSize="40sp" />
     </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/uc"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        >
+
+        <ImageView
+            android:id="@+id/instagram"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/instagram" />
+
+        <ImageView
+            android:id="@+id/twitter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_toEndOf="@+id/instagram"
+            android:scaleType="fitXY"
+            android:src="@drawable/twitter"
+            android:layout_marginStart="30dp"
+            />
+
+        <ImageView
+            android:id="@+id/github"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_toEndOf="@+id/twitter"
+            android:scaleType="fitXY"
+            android:src="@drawable/github"
+            android:layout_marginStart="30dp"
+            />
+    </RelativeLayout>
 </RelativeLayout>
