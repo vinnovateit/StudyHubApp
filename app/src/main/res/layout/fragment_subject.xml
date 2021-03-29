@@ -7,24 +7,28 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/subjectHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/gothammedium"
-        android:textSize="25sp"
-        android:text=""
         android:gravity="center"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:textColor="@color/black"
-        android:id="@+id/subjectHeader"
-        />
+        android:text=""
+        android:textColor="#3B82F6"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:lineSpacingExtra="6dp"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/notescard"
         android:layout_width="403dp"
         android:layout_height="277dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginLeft="5dp">
 
         <ScrollView
             android:layout_width="385dp"
@@ -40,7 +44,10 @@
                 android:text="NOTES:"
                 android:textAlignment="gravity"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:paddingLeft="11dp"
+                />
         </ScrollView>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

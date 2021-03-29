@@ -28,13 +28,11 @@ public class SubjectFragment extends Fragment {
         assert bundle != null;
         String descUrl = bundle.getString("detailsURL");
         String subHead = bundle.getString("subjectHeader");
-        subjectName.setText(subHead);
 
         String subDet = bundle.getString("subjectDetails");
         String[] words=subDet.split("\\s");
-        for(String w:words) {
-            Log.i("course", w);
-        }
+
+        subjectName.setText(subHead+" "+words[3]);
 
 
 
