@@ -26,6 +26,7 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseListener {
 
@@ -74,7 +75,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
 
                 for(Element x: h4){
                     Log.i("course",x.text());
-                    header.add(x.text());
+                    header.add(camelCase(x.text()));
                 }
                 for (Element x: h6) {
                     if(i%3==0 && i!=0){
@@ -106,6 +107,19 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         }
         setCourseRecycler(courseList);
         return view;
+    }
+
+    private String camelCase(String text) {
+        String s=text;
+        String line=s.toLowerCase();
+        String upper_case_line = "";
+        Scanner lineScan = new Scanner(line);
+        while(lineScan.hasNext()) {
+            String word = lineScan.next();
+            upper_case_line += Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ";
+        }
+
+        return (upper_case_line.trim());
     }
 
     private void setCourseRecycler(List<Course> courseList) {
