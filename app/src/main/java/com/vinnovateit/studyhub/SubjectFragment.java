@@ -60,9 +60,9 @@ public class SubjectFragment extends Fragment {
         String subDet = bundle.getString("subjectDetails");
         String[] words = subDet.split("\\s");
 
-        String courseCode = words[3].toLowerCase();
+        String courseCode = words[2].toLowerCase();
 
-        subjectName.setText(subHead + " " + words[3]);
+        subjectName.setText(subHead + " " + words[2]);
 
         //branchName = bundle.getString("branchName");
         //subjectPos = bundle.getInt("subjectPosition");
