@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/subLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
-    android:paddingBottom="2dp">
+    app:cardBackgroundColor="@color/background"
+    app:cardCornerRadius="10dp">
 
-    <!-- DO NOT REMOVE THIS CARDVIEW WITH ID subLayout -->
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:id="@+id/modulesDesc"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/subLayout">
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/background"
+        app:cardCornerRadius="10dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/modulesDesc"
+        <TextView
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:cardBackgroundColor="@color/background"
-            app:cardCornerRadius="10dp">
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:fontFamily="@font/gothammedium"
-                android:gravity="left"
-                android:paddingStart="11dp"
-                android:autoLink="web"
-                android:paddingTop="17dp"
-                android:paddingEnd="11dp"
-                android:paddingBottom="21dp"
-                android:text=""
-                android:textColor="@color/mainText"
-                android:textSize="12sp" />
-        </androidx.cardview.widget.CardView>
+            android:layout_marginTop="60dp"
+            android:autoLink="web"
+            android:fontFamily="@font/gothammedium"
+            android:gravity="left"
+            android:paddingStart="11dp"
+            android:paddingTop="17dp"
+            android:paddingEnd="11dp"
+            android:paddingBottom="21dp"
+            android:text=""
+            android:textColor="@color/mainText"
+            android:textSize="12sp" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
@@ -83,5 +79,4 @@
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-    </androidx.cardview.widget.CardView>
-</RelativeLayout>
+</androidx.cardview.widget.CardView>
