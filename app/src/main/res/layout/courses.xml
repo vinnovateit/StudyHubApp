@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
@@ -12,9 +12,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="-25dp"
         app:cardBackgroundColor="#B4D7EA"
         app:cardCornerRadius="25dp"
-        android:layout_marginBottom="-25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -51,7 +51,7 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <TextView
+        <!-- <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -69,7 +69,7 @@
             android:fontFamily="@font/gothammedium"
             android:text="@string/modules_8"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="15sp" /> -->
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -79,35 +79,34 @@
         android:layout_below="@+id/course_cv"
         android:layout_marginStart="10dp"
         app:cardBackgroundColor="#3B82F6"
-        app:cardCornerRadius="25dp"
-        >
+        app:cardCornerRadius="25dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/descText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/gothammedium"
+                android:gravity="center"
+                android:padding="5dp"
                 android:text="@string/see_detailed_description"
                 android:textColor="@color/black"
-                android:fontFamily="@font/gothammedium"
-                android:textSize="10sp"
-               android:padding="5dp"
-                android:layout_marginStart="10dp"
-                android:gravity="center"
-                android:layout_marginTop="1dp"
-                />
+                android:textSize="10sp" />
+
             <ImageView
                 android:id="@+id/plusShowMore"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_add"
-                android:layout_toEndOf="@+id/descText"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="2dp"
-                />
+                android:layout_toEndOf="@+id/descText"
+                android:src="@drawable/ic_add" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

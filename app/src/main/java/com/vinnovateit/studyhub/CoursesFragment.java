@@ -84,7 +84,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     str.append(x.text());
                     i++;
                     Log.i("i", String.valueOf(i));
-                    str.append("\n");
+                    str.append("\n\n");
                 }
                 course.add(str);
                 for (Element x:a) {
