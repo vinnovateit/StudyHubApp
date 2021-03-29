@@ -50,9 +50,9 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         String branchName=bundle.getString("name");
         branchHead.setText("BRANCH - "+branchName);
 
-        StringBuilder str= new StringBuilder();
+        String str= "";
         ArrayList<String> header = new ArrayList<String>();
-        ArrayList<StringBuilder> course = new ArrayList<StringBuilder>();
+        ArrayList<String> course = new ArrayList<String>();
         ArrayList<String> courseDetails = new ArrayList<String>();
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8)
@@ -74,17 +74,13 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     Log.i("course",x.text());
                     header.add(x.text());
                 }
-                header.add("");
                 for (Element x: h6) {
-                    Log.i("details",x.text());
                     if(i%3==0 && i!=0){
                         course.add(str);
-                        str.setLength(0);
+                        str = "";
                     }
-                    str.append(x.text());
+                    str+=x.text()+"\n\n";
                     i++;
-                    Log.i("i", String.valueOf(i));
-                    str.append("\n\n");
                 }
                 course.add(str);
                 for (Element x:a) {
@@ -92,9 +88,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     String link=x.select("a").attr("abs:href");
                     courseDetails.add(link);
                 }
-                courseDetails.add("");
                 len=header.size();
-                //branchHead.setText(header.get(16));
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -105,10 +99,9 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         coursesRecyler=view.findViewById(R.id.coursesRecyclerView);
         courseList=new ArrayList<>();
 
-        for(int i=0;i<len-1;i++){
+        for(int i=0;i<len;i++){
             courseList.add(new Course(header.get(i),course.get(i).toString(),courseDetails.get(i)));
         }
-        //courseList.add(new Course(header.get(len-1),course.get(len-1).toString(),courseDetails.get(len-1)));
         setCourseRecycler(courseList);
         return view;
     }
