@@ -25,7 +25,13 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
 
         }
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.black, this.getTheme()));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black, this.getTheme()));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.black));
+        }
 
     }
 
