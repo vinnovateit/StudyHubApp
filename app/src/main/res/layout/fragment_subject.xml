@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SubjectFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background"
+    >
 
     <TextView
         android:id="@+id/subjectHeader"
@@ -18,7 +21,7 @@
         android:gravity="center"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text=""
+        android:text="@string/data_structures_and_algorithms_ite_1004"
         android:textColor="#3B82F6"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -26,14 +29,18 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/notescard"
-        android:layout_width="403dp"
+        android:layout_width="wrap_content"
         android:layout_height="277dp"
-        android:layout_marginLeft="5dp">
+        android:layout_marginStart="5dp"
+        app:cardCornerRadius="35dp"
+        app:cardBackgroundColor="@color/background"
+        android:layout_margin="10dp"
+        >
 
         <ScrollView
             android:layout_width="385dp"
             android:layout_height="265dp"
-            android:layout_marginLeft="5dp">
+            android:layout_marginStart="5dp">
 
             <TextView
                 android:id="@+id/textView5"
@@ -41,13 +48,22 @@
                 android:layout_height="wrap_content"
                 android:autoLink="web"
                 android:singleLine="false"
-                android:text="NOTES:"
+                android:text="@string/note"
                 android:textAlignment="gravity"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
-                android:paddingLeft="11dp"
-                />
+                android:paddingStart="11dp"
+                android:textColor="@color/mainText"
+                tools:ignore="RtlSymmetry" />
         </ScrollView>
     </androidx.cardview.widget.CardView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </ScrollView>
 </LinearLayout>

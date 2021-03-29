@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#3B82F6"
+        app:cardCornerRadius="25dp">
+
+        <LinearLayout
+            android:id="@+id/above"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/moduleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/gothammedium"
+                    android:text="@string/module_1"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/expandPlease"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="30dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_add" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/expandable_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card"
+        android:background="@color/background"
+        android:visibility="gone">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/background"
+            app:cardCornerRadius="25dp"
+            >
+
+            <TextView
+                android:layout_margin="15dp"
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gothammedium"
+                android:textColor="@color/mainText"
+                android:textSize="12sp"
+                android:gravity="center"
+                />
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</RelativeLayout>
