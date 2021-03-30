@@ -13,7 +13,7 @@
         android:id="@+id/course_cv"
         android:layout_width="205dp"
         android:layout_height="195dp"
-        android:layout_marginBottom="-30dp"
+        android:layout_marginBottom="-25dp"
         app:cardBackgroundColor="#B4D7EA"
         app:cardCornerRadius="25dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,6 +92,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
