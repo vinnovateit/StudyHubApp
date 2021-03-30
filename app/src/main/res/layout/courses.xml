@@ -12,7 +12,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/course_cv"
         android:layout_width="205dp"
-        android:layout_height="195dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="-25dp"
         app:cardBackgroundColor="#B4D7EA"
         app:cardCornerRadius="25dp"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="7dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="28dp"
                 android:autoSizeMaxTextSize="15sp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/gothammedium"
