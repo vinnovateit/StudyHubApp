@@ -1,5 +1,7 @@
 package com.vinnovateit.studyhub;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -9,12 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vinnovateit.studyhub.adapter.CourseAdapter;
 import com.vinnovateit.studyhub.model.Course;
@@ -36,13 +40,24 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     List<Course> courseList;
     Integer len;
     String subject;
+    public static class DialogUtils {
 
+        public static ProgressDialog showProgressDialog(Activity activity, String message) {
+            ProgressDialog m_Dialog = new ProgressDialog(activity);
+            m_Dialog.setMessage(message);
+            m_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            m_Dialog.setCancelable(false);
+            m_Dialog.show();
+            return m_Dialog;
+
+        }
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
-
         name=view.findViewById(R.id.subjectName);
         details=view.findViewById(R.id.subjectDetails);
         branchHead=view.findViewById(R.id.branchName);
@@ -64,6 +79,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
             try {
+                final ProgressDialog dialog=DialogUtils.showProgressDialog(getActivity(),"Loading...");
                 String uri="https://studiesguide.herokuapp.com"+branch;
                 Document doc= (Document) Jsoup.connect(uri).get();
                 Elements data=doc.select("div.row");
@@ -92,9 +108,15 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     courseDetails.add(link);
                 }
                 len=header.size();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                }, 3000); // 3000 milliseconds delay
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Toast.makeText(view.getContext(),"Error", Toast.LENGTH_SHORT).show();
             }
 
         }

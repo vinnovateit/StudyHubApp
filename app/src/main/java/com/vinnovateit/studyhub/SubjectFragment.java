@@ -1,6 +1,10 @@
 package com.vinnovateit.studyhub;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -8,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -41,10 +46,24 @@ public class SubjectFragment extends Fragment {
     Integer subjectPos,arraySize;
     String courseApi;
 
+
     RecyclerView subjectRecycler;
     SubjectAdapter subjectAdapter;
     List<Subject> subjectList;
 
+
+    public static class DialogUtils {
+
+        public static ProgressDialog showProgressDialog(Activity activity, String message) {
+            ProgressDialog m_Dialog = new ProgressDialog(activity);
+            m_Dialog.setMessage(message);
+            m_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            m_Dialog.setCancelable(false);
+            m_Dialog.show();
+            return m_Dialog;
+
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,6 +96,7 @@ public class SubjectFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
+                    final ProgressDialog dialog= CoursesFragment.DialogUtils.showProgressDialog(getActivity(),"Loading...");
                     JSONObject j1 = new JSONObject(response);
                     JSONArray j2 = j1.getJSONArray("courses");
                     //   for(int j=0;j<9;j++) {
@@ -100,6 +120,12 @@ public class SubjectFragment extends Fragment {
                         //  System.out.println("\n");
 
                     }
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            dialog.dismiss();
+                        }
+                    }, 3000); // 3000 milliseconds delay
 
 
                 } catch (JSONException e) {
@@ -152,6 +178,7 @@ public class SubjectFragment extends Fragment {
         }
         return view;
     }
+
     private void setSubjectRecycler(List<Subject> subjectList){
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
         subjectRecycler.setLayoutManager(layoutManager);
