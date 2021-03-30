@@ -69,7 +69,7 @@ public class BranchFragment extends Fragment {
             }
             else
             {
-                Toast.makeText(view.getContext(), "No Internet", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
             }
 
         });
@@ -84,7 +84,7 @@ public class BranchFragment extends Fragment {
             }
             else
             {
-                Toast.makeText(view.getContext(), "No Internet", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
             }
         });
         uc.setOnClickListener(view1 -> {
@@ -98,7 +98,7 @@ public class BranchFragment extends Fragment {
             }
             else
             {
-                Toast.makeText(view.getContext(), "No Internet", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
             }
         });
         return view;
