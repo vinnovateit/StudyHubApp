@@ -1,19 +1,17 @@
 package com.vinnovateit.studyhub;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
+
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
+
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.os.Handler;
+
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,8 +58,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         name = view.findViewById(R.id.subjectName);
         if (!CheckInternet(view.getContext())) {
             Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
-        }
-        else {
+        } else {
             details = view.findViewById(R.id.subjectDetails);
             branchHead = view.findViewById(R.id.branchName);
             Bundle bundle = this.getArguments();
@@ -131,13 +128,12 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     }
 
 
-
     private String camelCase(String text) {
-        String s=text;
-        String line=s.toLowerCase();
+        String s = text;
+        String line = s.toLowerCase();
         String upper_case_line = "";
         Scanner lineScan = new Scanner(line);
-        while(lineScan.hasNext()) {
+        while (lineScan.hasNext()) {
             String word = lineScan.next();
             upper_case_line += Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ";
         }
@@ -149,19 +145,20 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         coursesRecyler.setLayoutManager(layoutManager);
         coursesRecyler.setHasFixedSize(true);
-        courseAdapter = new CourseAdapter(requireContext(),courseList,this);
+        courseAdapter = new CourseAdapter(requireContext(), courseList, this);
         coursesRecyler.setAdapter(courseAdapter);
     }
+
     @Override
     public void onCourseClick(int position) {
-            Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",false);
-            Bundle bundle = new Bundle();
-            bundle.putString("detailsURL", courseList.get(position).getDescUrl());
-            bundle.putString("subjectHeader", courseList.get(position).getHeader());
-            bundle.putString("subjectDetails", courseList.get(position).getDetails());
-            bundle.putInt("subjectPosition", courseList.get(position).getPos());
-            bundle.putString("branchName", subject);
-            bundle.putInt("arraySize", len);
-            Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_subjectFragment, bundle);
+        Diag.showSimpleProgressDialog(getContext(), "STUDY HUB", "Loading", false);
+        Bundle bundle = new Bundle();
+        bundle.putString("detailsURL", courseList.get(position).getDescUrl());
+        bundle.putString("subjectHeader", courseList.get(position).getHeader());
+        bundle.putString("subjectDetails", courseList.get(position).getDetails());
+        bundle.putInt("subjectPosition", courseList.get(position).getPos());
+        bundle.putString("branchName", subject);
+        bundle.putInt("arraySize", len);
+        Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_subjectFragment, bundle);
     }
 }

@@ -1,19 +1,14 @@
 package com.vinnovateit.studyhub;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.graphics.Typeface;
-import android.net.ConnectivityManager;
+
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -26,9 +21,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.vinnovateit.studyhub.adapter.CourseAdapter;
+
 import com.vinnovateit.studyhub.adapter.SubjectAdapter;
-import com.vinnovateit.studyhub.model.Course;
+
 import com.vinnovateit.studyhub.model.Diag;
 import com.vinnovateit.studyhub.model.Subject;
 
@@ -45,13 +40,14 @@ import java.util.List;
 
 public class SubjectFragment extends Fragment {
     String branchName;
-    Integer subjectPos,arraySize;
+    Integer subjectPos, arraySize;
     String courseApi;
 
 
     RecyclerView subjectRecycler;
     SubjectAdapter subjectAdapter;
     List<Subject> subjectList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -84,7 +80,7 @@ public class SubjectFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
-                 //   final ProgressDialog dialog= CoursesFragment.DialogUtils.showProgressDialog(getActivity(),"Loading...");
+                    //   final ProgressDialog dialog= CoursesFragment.DialogUtils.showProgressDialog(getActivity(),"Loading...");
                     JSONObject j1 = new JSONObject(response);
                     JSONArray j2 = j1.getJSONArray("courses");
                     //   for(int j=0;j<9;j++) {
@@ -120,11 +116,11 @@ public class SubjectFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                subjectRecycler=view.findViewById(R.id.subject_recycler);
-                subjectList=new ArrayList<>();
+                subjectRecycler = view.findViewById(R.id.subject_recycler);
+                subjectList = new ArrayList<>();
 
-                for(int i=0;i<moduleNumber.size();i++){
-                    subjectList.add(new Subject(moduleNumber.get(i),moduleDesc.get(i)));
+                for (int i = 0; i < moduleNumber.size(); i++) {
+                    subjectList.add(new Subject(moduleNumber.get(i), moduleDesc.get(i)));
                 }
                 setSubjectRecycler(subjectList);
 
@@ -167,12 +163,12 @@ public class SubjectFragment extends Fragment {
         return view;
     }
 
-    private void setSubjectRecycler(List<Subject> subjectList){
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
+    private void setSubjectRecycler(List<Subject> subjectList) {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         subjectRecycler.setLayoutManager(layoutManager);
         subjectRecycler.setHasFixedSize(true);
         subjectRecycler.setNestedScrollingEnabled(false);
-        subjectAdapter = new SubjectAdapter(requireContext(),subjectList);
+        subjectAdapter = new SubjectAdapter(requireContext(), subjectList);
         subjectRecycler.setAdapter(subjectAdapter);
     }
 }
