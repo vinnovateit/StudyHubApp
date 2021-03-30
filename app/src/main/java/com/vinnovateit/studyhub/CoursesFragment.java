@@ -149,7 +149,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     @Override
     public void onCourseClick(int position) {
         if (CheckInternet(getView().getContext())) {
-            Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
+            Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",false);
             Bundle bundle = new Bundle();
             bundle.putString("detailsURL", courseList.get(position).getDescUrl());
             bundle.putString("subjectHeader", courseList.get(position).getHeader());
