@@ -156,7 +156,7 @@ public class SubjectFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
         subjectRecycler.setLayoutManager(layoutManager);
         subjectRecycler.setHasFixedSize(true);
-        //subjectRecycler.setNestedScrollingEnabled(false);
+        subjectRecycler.setNestedScrollingEnabled(false);
         subjectAdapter = new SubjectAdapter(requireContext(),subjectList);
         subjectRecycler.setAdapter(subjectAdapter);
     }

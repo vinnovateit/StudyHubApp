@@ -26,21 +26,25 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:lineSpacingExtra="6dp"/>
+    
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/notescard"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         app:cardCornerRadius="35dp"
         app:cardBackgroundColor="@color/background"
         android:layout_margin="10dp"
         >
-
-        <ScrollView
-            android:layout_width="385dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp">
 
             <TextView
                 android:id="@+id/textView5"
@@ -54,15 +58,19 @@
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
                 android:paddingStart="11dp"
+                android:paddingBottom="5dp"
+                android:paddingEnd="11dp"
                 android:textColor="@color/mainText"
                 tools:ignore="RtlSymmetry"
-                android:maxHeight="277dp"
+                android:lineSpacingExtra="3dp"
                 />
-        </ScrollView>
     </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/subject_recycler"/>
+        android:id="@+id/subject_recycler"
+        tools:listitem="@layout/subject"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

@@ -31,7 +31,8 @@
             android:paddingBottom="21dp"
             android:text=""
             android:textColor="@color/mainText"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:lineSpacingExtra="3dp"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
