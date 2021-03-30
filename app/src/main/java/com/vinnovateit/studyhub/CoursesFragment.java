@@ -56,9 +56,6 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
         name = view.findViewById(R.id.subjectName);
-        if (!CheckInternet(view.getContext())) {
-            Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
-        } else {
             details = view.findViewById(R.id.subjectDetails);
             branchHead = view.findViewById(R.id.branchName);
             Bundle bundle = this.getArguments();
@@ -123,7 +120,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
             }
             setCourseRecycler(courseList);
 
-        }
+
         return view;
     }
 
@@ -151,14 +148,19 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
 
     @Override
     public void onCourseClick(int position) {
-        Diag.showSimpleProgressDialog(getContext(), "STUDY HUB", "Loading", false);
-        Bundle bundle = new Bundle();
-        bundle.putString("detailsURL", courseList.get(position).getDescUrl());
-        bundle.putString("subjectHeader", courseList.get(position).getHeader());
-        bundle.putString("subjectDetails", courseList.get(position).getDetails());
-        bundle.putInt("subjectPosition", courseList.get(position).getPos());
-        bundle.putString("branchName", subject);
-        bundle.putInt("arraySize", len);
-        Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_subjectFragment, bundle);
+        if (!CheckInternet(getContext())) {
+            Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_internet);
+        }
+        else {
+            Diag.showSimpleProgressDialog(getContext(), "STUDY HUB", "Loading", false);
+            Bundle bundle = new Bundle();
+            bundle.putString("detailsURL", courseList.get(position).getDescUrl());
+            bundle.putString("subjectHeader", courseList.get(position).getHeader());
+            bundle.putString("subjectDetails", courseList.get(position).getDetails());
+            bundle.putInt("subjectPosition", courseList.get(position).getPos());
+            bundle.putString("branchName", subject);
+            bundle.putInt("arraySize", len);
+            Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_subjectFragment, bundle);
+        }
     }
 }
