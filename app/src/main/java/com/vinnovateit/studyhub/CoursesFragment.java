@@ -49,6 +49,14 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
 
         return wifi.isConnected() || mobile.isConnected();
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

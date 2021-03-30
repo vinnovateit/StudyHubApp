@@ -1,16 +1,20 @@
 package com.vinnovateit.studyhub;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +52,14 @@ public class SubjectFragment extends Fragment {
     SubjectAdapter subjectAdapter;
     List<Subject> subjectList;
 
+    public static boolean CheckInternet(Context context) {
+        ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        android.net.NetworkInfo mobile = connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return wifi.isConnected() || mobile.isConnected();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +67,27 @@ public class SubjectFragment extends Fragment {
                 container, false);
         TextView t = view.findViewById(R.id.textView5);
         TextView subjectName = view.findViewById(R.id.subjectHeader);
+
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if(keyCode==KeyEvent.KEYCODE_BACK && keyEvent.getAction()==KeyEvent.ACTION_UP){
+                    if(CheckInternet(view.getContext())) {
+                        Navigation.findNavController(requireView()).navigateUp();
+                        return true;}
+                    else{
+                        Navigation.findNavController(requireView()).navigate(R.id.action_subjectFragment_to_internet);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
+
         Bundle bundle = this.getArguments();
         assert bundle != null;
         String descUrl = bundle.getString("detailsURL");

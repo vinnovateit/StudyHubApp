@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".internet">
+    tools:context=".internet"
+    android:background="@color/background">
 <com.airbnb.lottie.LottieAnimationView
     android:id="@+id/anim"
     android:layout_width="300dp"
@@ -24,6 +25,23 @@
         android:textSize="16sp"
         android:layout_below="@+id/anim"
         android:layout_centerInParent="true"
+        android:id="@+id/noInternet"
+        android:gravity="center"
         />
+
+    <TextView
+        android:id="@+id/retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/anim"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="66dp"
+        android:fontFamily="@font/gothammedium"
+        android:text="Retry"
+        android:textColor="@color/mainText"
+        android:textSize="20sp"
+        android:drawablePadding="5dp"
+        android:drawableEnd="@drawable/ic_refresh"
+        android:drawableTint="@color/mainText"/>
 
 </RelativeLayout>

@@ -3,6 +3,7 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
 import android.os.StrictMode;
 
 
@@ -29,7 +30,5 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
             getWindow().setStatusBarColor(getResources().getColor(R.color.black));
         }
-
     }
-
 }
