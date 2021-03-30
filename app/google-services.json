@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "6511238098",
+    "project_id": "study-hub-c57cf",
+    "storage_bucket": "study-hub-c57cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6511238098:android:8f01ac1f702154bd74c60b",
+        "android_client_info": {
+          "package_name": "com.vinnovateit.studyhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6511238098-smn85c7q5acoo460utrumodq6g6sekbn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBkyygZgyHfvNM1hqN9yxCW_w_-PIjh78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6511238098-smn85c7q5acoo460utrumodq6g6sekbn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
