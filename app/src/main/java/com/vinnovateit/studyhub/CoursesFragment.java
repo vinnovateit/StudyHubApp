@@ -2,6 +2,8 @@ package com.vinnovateit.studyhub;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -52,6 +54,14 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
 
         }
 
+    }
+    public static boolean CheckInternet(Context context)
+    {
+        ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        android.net.NetworkInfo mobile = connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return wifi.isConnected() || mobile.isConnected();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -153,13 +163,17 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     }
     @Override
     public void onCourseClick(int position) {
-        Bundle bundle = new Bundle();
-        bundle.putString("detailsURL",courseList.get(position).getDescUrl());
-        bundle.putString("subjectHeader",courseList.get(position).getHeader());
-        bundle.putString("subjectDetails",courseList.get(position).getDetails());
-        bundle.putInt("subjectPosition",courseList.get(position).getPos());
-        bundle.putString("branchName",subject);
-        bundle.putInt("arraySize",len);
-        Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_subjectFragment,bundle);
+        if (CheckInternet(getView().getContext())) {
+            Bundle bundle = new Bundle();
+            bundle.putString("detailsURL", courseList.get(position).getDescUrl());
+            bundle.putString("subjectHeader", courseList.get(position).getHeader());
+            bundle.putString("subjectDetails", courseList.get(position).getDetails());
+            bundle.putInt("subjectPosition", courseList.get(position).getPos());
+            bundle.putString("branchName", subject);
+            bundle.putInt("arraySize", len);
+            Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_subjectFragment, bundle);
+        } else {
+            Toast.makeText(getView().getContext(), "No Internet", Toast.LENGTH_SHORT).show();
+        }
     }
 }
