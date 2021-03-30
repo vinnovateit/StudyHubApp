@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.vinnovateit.studyhub.model.Diag;
+
 
 public class BranchFragment extends Fragment {
     CardView it, cse, uc;
@@ -57,6 +59,7 @@ public class BranchFragment extends Fragment {
         it.setOnClickListener(view13 -> {
             if(CheckInternet(view.getContext()))
             {
+                Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
                 Log.i("internet","working");
                 Bundle bundle = new Bundle();
                 bundle.putString("branch", "/branch/it");
@@ -72,6 +75,7 @@ public class BranchFragment extends Fragment {
         });
         cse.setOnClickListener(view12 -> {
             if(CheckInternet(view.getContext())) {
+                Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
                 Bundle bundle = new Bundle();
                 bundle.putString("branch", "/branch/cse");
                 bundle.putString("name", "CSE");
@@ -85,7 +89,7 @@ public class BranchFragment extends Fragment {
         });
         uc.setOnClickListener(view1 -> {
             if(CheckInternet(view.getContext())) {
-
+                Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
                 Bundle bundle = new Bundle();
                 bundle.putString("branch", "/branch/uc");
                 bundle.putString("name", "U.C.");

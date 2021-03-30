@@ -28,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.vinnovateit.studyhub.adapter.CourseAdapter;
 import com.vinnovateit.studyhub.adapter.SubjectAdapter;
 import com.vinnovateit.studyhub.model.Course;
+import com.vinnovateit.studyhub.model.Diag;
 import com.vinnovateit.studyhub.model.Subject;
 
 import org.json.JSONArray;
@@ -52,18 +53,6 @@ public class SubjectFragment extends Fragment {
     List<Subject> subjectList;
 
 
-    public static class DialogUtils {
-
-        public static ProgressDialog showProgressDialog(Activity activity, String message) {
-            ProgressDialog m_Dialog = new ProgressDialog(activity);
-            m_Dialog.setMessage(message);
-            m_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            m_Dialog.setCancelable(false);
-            m_Dialog.show();
-            return m_Dialog;
-
-        }
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,7 +85,7 @@ public class SubjectFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
-                    final ProgressDialog dialog= CoursesFragment.DialogUtils.showProgressDialog(getActivity(),"Loading...");
+                 //   final ProgressDialog dialog= CoursesFragment.DialogUtils.showProgressDialog(getActivity(),"Loading...");
                     JSONObject j1 = new JSONObject(response);
                     JSONArray j2 = j1.getJSONArray("courses");
                     //   for(int j=0;j<9;j++) {
@@ -120,13 +109,13 @@ public class SubjectFragment extends Fragment {
                         //  System.out.println("\n");
 
                     }
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                            dialog.dismiss();
-                        }
-                    }, 3000); // 3000 milliseconds delay
-
+//                    Handler handler = new Handler();
+//                    handler.postDelayed(new Runnable() {
+//                        public void run() {
+//                            dialog.dismiss();
+//                        }
+//                    }, 3000); // 3000 milliseconds delay
+                    Diag.removeSimpleProgressDialog();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

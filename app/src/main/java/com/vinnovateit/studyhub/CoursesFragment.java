@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.vinnovateit.studyhub.adapter.CourseAdapter;
 import com.vinnovateit.studyhub.model.Course;
+import com.vinnovateit.studyhub.model.Diag;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -42,19 +43,6 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     List<Course> courseList;
     Integer len;
     String subject;
-    public static class DialogUtils {
-
-        public static ProgressDialog showProgressDialog(Activity activity, String message) {
-            ProgressDialog m_Dialog = new ProgressDialog(activity);
-            m_Dialog.setMessage(message);
-            m_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            m_Dialog.setCancelable(false);
-            m_Dialog.show();
-            return m_Dialog;
-
-        }
-
-    }
     public static boolean CheckInternet(Context context)
     {
         ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -69,6 +57,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
         name=view.findViewById(R.id.subjectName);
+
         details=view.findViewById(R.id.subjectDetails);
         branchHead=view.findViewById(R.id.branchName);
         Bundle bundle = this.getArguments();
@@ -89,7 +78,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
             try {
-                final ProgressDialog dialog=DialogUtils.showProgressDialog(getActivity(),"Loading...");
+              //  final ProgressDialog dialog=DialogUtils.showProgressDialog(getActivity(),"Loading...");
                 String uri="https://studiesguide.herokuapp.com"+branch;
                 Document doc= (Document) Jsoup.connect(uri).get();
                 Elements data=doc.select("div.row");
@@ -117,13 +106,9 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     String link=x.select("a").attr("abs:href");
                     courseDetails.add(link);
                 }
+
                 len=header.size();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        dialog.dismiss();
-                    }
-                }, 3000); // 3000 milliseconds delay
+                Diag.removeSimpleProgressDialog();
             }
             catch (Exception e) {
                 Toast.makeText(view.getContext(),"Error", Toast.LENGTH_SHORT).show();
@@ -164,6 +149,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     @Override
     public void onCourseClick(int position) {
         if (CheckInternet(getView().getContext())) {
+            Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
             Bundle bundle = new Bundle();
             bundle.putString("detailsURL", courseList.get(position).getDescUrl());
             bundle.putString("subjectHeader", courseList.get(position).getHeader());
