@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="7dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/course_cv"
         android:layout_width="205dp"
         android:layout_height="195dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="-25dp"
+        android:layout_marginBottom="-30dp"
         app:cardBackgroundColor="#B4D7EA"
         app:cardCornerRadius="25dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,13 +51,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="7dp"
+                android:layout_marginBottom="25dp"
+                android:autoSizeMaxTextSize="15sp"
+                android:autoSizeTextType="uniform"
                 android:fontFamily="@font/gothammedium"
                 android:text="@string/course_code_ite1004"
                 android:textColor="@color/black"
-                android:textSize="15sp"
-                android:layout_marginBottom="25dp"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMaxTextSize="15sp"/>
+                android:textSize="15sp" />
         </LinearLayout>
 
         <!-- <TextView
@@ -85,7 +86,6 @@
         android:layout_width="205dp"
         android:layout_height="25dp"
         android:layout_below="@+id/course_cv"
-        android:layout_marginStart="10dp"
         app:cardBackgroundColor="#3B82F6"
         app:cardCornerRadius="25dp">
 
@@ -102,6 +102,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/gothammedium"
                 android:gravity="center"
+                android:includeFontPadding="false"
                 android:padding="1dp"
                 android:text="@string/see_detailed_description"
                 android:textColor="@color/black"
