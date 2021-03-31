@@ -141,10 +141,11 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                                 String oneObjectsItem4 = mJsonObject.getString("credits");
                                 Log.i("id",oneObjectsItem2);
                                 Log.i("Course Name:",oneObjectsItem1);
-                                Log.i("Code:",oneObjectsItem3);
-                                Log.i("credits",oneObjectsItem4);
+//                                Log.i("Code:","Code:"+oneObjectsItem3);
+//                                Log.i("credits","Credits:"+oneObjectsItem4);
                                 JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
-                                Log.i("Modules:",Integer.toString(mJsonArrayProperty1.length()));
+                              //  Log.i("Modules:",Integer.toString(mJsonArrayProperty1.length()));
+                                Log.i("test","Code - "+ oneObjectsItem3+"\n"+"Credits - "+ oneObjectsItem4+"\n"+"Modules - "+Integer.toString(mJsonArrayProperty1.length()));
 //                                for (int i = 0; i < mJsonArrayProperty1.length(); i++) {
 //
 //                                    JSONObject oneObject = mJsonArrayProperty1.getJSONObject(i);
