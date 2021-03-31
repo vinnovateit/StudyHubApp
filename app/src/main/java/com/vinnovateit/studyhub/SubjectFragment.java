@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import androidx.navigation.Navigation;
@@ -143,7 +144,9 @@ public class SubjectFragment extends Fragment {
 //                            dialog.dismiss();
 //                        }
 //                    }, 3000); // 3000 milliseconds delay
-                    Diag.removeSimpleProgressDialog();
+                    ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                    layout.setVisibility(View.GONE);
+                    //Diag.removeSimpleProgressDialog();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

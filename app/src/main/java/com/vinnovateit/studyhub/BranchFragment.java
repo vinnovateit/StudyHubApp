@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -15,6 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.vinnovateit.studyhub.model.Diag;
 
 
@@ -57,7 +62,9 @@ public class BranchFragment extends Fragment {
         it.setOnClickListener(view13 -> {
             if(CheckInternet(view.getContext()))
             {
-                Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
+                ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                layout.setVisibility(View.VISIBLE);
+                //Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
                 Log.i("internet","working");
                 Bundle bundle = new Bundle();
                 bundle.putString("branch", "/branch/it");
@@ -73,7 +80,9 @@ public class BranchFragment extends Fragment {
         });
         cse.setOnClickListener(view12 -> {
             if(CheckInternet(view.getContext())) {
-                Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
+                ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                layout.setVisibility(View.VISIBLE);
+                //Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
                 Bundle bundle = new Bundle();
                 bundle.putString("branch", "/branch/cse");
                 bundle.putString("name", "CSE");
@@ -87,7 +96,9 @@ public class BranchFragment extends Fragment {
         });
         uc.setOnClickListener(view1 -> {
             if(CheckInternet(view.getContext())) {
-                Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
+                ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                layout.setVisibility(View.VISIBLE);
+                //Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
                 Bundle bundle = new Bundle();
                 bundle.putString("branch", "/branch/uc");
                 bundle.putString("name", "U.C.");
