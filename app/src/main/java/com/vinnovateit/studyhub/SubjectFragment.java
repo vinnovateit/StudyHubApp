@@ -152,6 +152,7 @@ public class SubjectFragment extends Fragment {
 
                         JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
                         JSONArray mJsonArrayProperty2 = mJsonObject.getJSONArray("das");
+                        JSONArray mJsonArrayProperty3 = mJsonObject.getJSONArray("pdfs");
                         for (int i = 0; i < mJsonArrayProperty1.length(); i++) {
 
                             JSONObject oneObject = mJsonArrayProperty1.getJSONObject(i);
@@ -166,6 +167,20 @@ public class SubjectFragment extends Fragment {
                             moduleDesc.add(NewString);
                             //  System.out.println("\n");
 
+                        }
+                        if(mJsonArrayProperty3.length()>0)
+                        {
+                            String p="";
+                            moduleNumber.add("Materials");
+                            for(int i=0;i<mJsonArrayProperty3.length();i++)
+                            {
+                                JSONObject oneObject2 = mJsonArrayProperty3.getJSONObject(i);
+                                String nameda = oneObject2.getString("name");
+                                String dlk = oneObject2.getString("link");
+                                p=p+"\n"+nameda+"\n"+dlk;
+
+                            }
+                            moduleDesc.add(p);
                         }
                         if(mJsonArrayProperty2.length()>0) {
                             String s="";
