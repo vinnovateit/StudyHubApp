@@ -53,6 +53,7 @@
                 android:autoLink="web"
                 android:singleLine="false"
                 android:text="@string/note"
+                android:textColorLink="#3B82F6"
                 android:textAlignment="gravity"
                 android:textSize="18sp"
                 android:textStyle="bold"
