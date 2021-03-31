@@ -24,10 +24,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.vinnovateit.studyhub.adapter.CourseAdapter;
 import com.vinnovateit.studyhub.model.Course;
 import com.vinnovateit.studyhub.model.Diag;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -104,7 +112,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
             String branchName = bundle.getString("name");
             branchHead.setText("BRANCH - " + branchName);
             subject = bundle.getString("subject");
-
+            String test="";
             String str = "";
             ArrayList<String> header = new ArrayList<String>();
             ArrayList<String> course = new ArrayList<String>();
@@ -114,6 +122,56 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                         .permitAll().build();
                 StrictMode.setThreadPolicy(policy);
+                 test= "https://studiesguide.herokuapp.com/courses/studyhubapp/computer";
+                StringRequest stringRequest = new StringRequest(test, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+
+                            JSONObject j1 = new JSONObject(response);
+                            JSONArray j2 = j1.getJSONArray("courses");
+                            //   for(int j=0;j<9;j++) {
+                            // System.out.println("SUBJECT :"+Integer.toString(j));
+                            for(int j=0;j<j2.length();j++) {
+
+                                JSONObject mJsonObject = j2.getJSONObject(j);
+                                String oneObjectsItem1 = mJsonObject.getString("name");
+                                String oneObjectsItem2 = mJsonObject.getString("_id");
+                                String oneObjectsItem3 = mJsonObject.getString("code");
+                                String oneObjectsItem4 = mJsonObject.getString("credits");
+                                Log.i("id",oneObjectsItem2);
+                                Log.i("Course Name:",oneObjectsItem1);
+                                Log.i("Code:",oneObjectsItem3);
+                                Log.i("credits",oneObjectsItem4);
+                                JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
+                                Log.i("Modules:",Integer.toString(mJsonArrayProperty1.length()));
+//                                for (int i = 0; i < mJsonArrayProperty1.length(); i++) {
+//
+//                                    JSONObject oneObject = mJsonArrayProperty1.getJSONObject(i);
+//                                    String modno = oneObject.getString("num");
+//                                    if (!modno.equals("")) {
+//                                        System.out.println("MODULE:" + modno);
+//
+//                                    }
+//                                    String oneObjectsItem = oneObject.getString("markdown");
+//                                    String NewString = oneObjectsItem.replace("*", "");
+//                                    System.out.println(NewString);
+//                                    //  System.out.println("\n");
+//
+//                                }
+                            }
+                        }catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("branch: ", "error");
+                        }
+                    });
+                    RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
+            requestQueue.add(stringRequest);
                 try {
                     //  final ProgressDialog dialog=DialogUtils.showProgressDialog(getActivity(),"Loading...");
                     String uri = "https://studiesguide.herokuapp.com" + branch;
