@@ -8,4 +8,5 @@
 
     <color name="mainText">#FFFFFFFF</color>
     <color name="background">#FF000000</color>
+    <color name="pb_background">#CC000000</color>
 </resources>

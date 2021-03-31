@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -17,9 +18,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.vinnovateit.studyhub.adapter.CourseAdapter;
 import com.vinnovateit.studyhub.model.Course;
 import com.vinnovateit.studyhub.model.Diag;
@@ -113,7 +116,9 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     }
 
                     len = header.size();
-                    Diag.removeSimpleProgressDialog();
+                    ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                    layout.setVisibility(View.GONE);
+                    //Diag.removeSimpleProgressDialog();
                 } catch (Exception e) {
                     Toast.makeText(view.getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
@@ -160,7 +165,9 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
             Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_internet);
         }
         else {
-            Diag.showSimpleProgressDialog(getContext(), "STUDY HUB", "Loading", false);
+            ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+            layout.setVisibility(View.VISIBLE);
+            //Diag.showSimpleProgressDialog(getContext(), "STUDY HUB", "Loading", false);
             Bundle bundle = new Bundle();
             bundle.putString("detailsURL", courseList.get(position).getDescUrl());
             bundle.putString("subjectHeader", courseList.get(position).getHeader());

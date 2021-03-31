@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/main_layout">
 
 
     <fragment
@@ -14,7 +15,11 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/my_nav"
-        tools:layout_editor_absoluteX="187dp"
-        tools:layout_editor_absoluteY="236dp" />
+        tools:layout_editor_absoluteX="190dp"
+        tools:layout_editor_absoluteY="208dp" />
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_bar"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
