@@ -3,6 +3,7 @@ package com.vinnovateit.studyhub;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -40,6 +41,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +57,29 @@ public class SubjectFragment extends Fragment {
     RecyclerView subjectRecycler;
     SubjectAdapter subjectAdapter;
     List<Subject> subjectList;
-
+    static public boolean isURLReachable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnected()) {
+            try {
+                URL url = new URL("https://studyhub.vinnovateit.com");
+                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
+                urlc.setConnectTimeout(10 * 1000);          // 10 s.
+                urlc.connect();
+                if (urlc.getResponseCode() == 200) {        // 200 = "OK" code (http connection is fine).
+                    Log.i("Connection", "Success !");
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (MalformedURLException e1) {
+                return false;
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        return false;
+    }
     public static boolean CheckInternet(Context context) {
         ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -66,135 +93,136 @@ public class SubjectFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_subject,
                 container, false);
-        TextView t = view.findViewById(R.id.textView5);
-        TextView subjectName = view.findViewById(R.id.subjectHeader);
+        if(isURLReachable(getContext())) {
+            TextView t = view.findViewById(R.id.textView5);
+            TextView subjectName = view.findViewById(R.id.subjectHeader);
 
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if(keyCode==KeyEvent.KEYCODE_BACK && keyEvent.getAction()==KeyEvent.ACTION_UP){
-                    if(CheckInternet(view.getContext())) {
-                        Navigation.findNavController(requireView()).navigateUp();
-                        return true;}
-                    else{
-                        Navigation.findNavController(requireView()).navigate(R.id.action_subjectFragment_to_internet);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-
-
-
-        Bundle bundle = this.getArguments();
-        assert bundle != null;
-        String descUrl = bundle.getString("detailsURL");
-        String subHead = bundle.getString("subjectHeader");
-
-        String subDet = bundle.getString("subjectDetails");
-        String[] words = subDet.split("\\s");
-
-        String courseCode = words[2].toLowerCase();
-
-        subjectName.setText(subHead + " " + words[2]);
-
-        //branchName = bundle.getString("branchName");
-        //subjectPos = bundle.getInt("subjectPosition");
-        //arraySize = bundle.getInt("arraySize");
-
-        ArrayList<String> moduleNumber = new ArrayList<String>();
-        ArrayList<String> moduleDesc = new ArrayList<String>();
-
-        //This is your link to be parsed.
-        courseApi = "https://studiesguide.herokuapp.com/courses/studyhubapp/" + courseCode;
-        StringRequest stringRequest = new StringRequest(courseApi, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    //   final ProgressDialog dialog= CoursesFragment.DialogUtils.showProgressDialog(getActivity(),"Loading...");
-                    JSONObject j1 = new JSONObject(response);
-                    JSONArray j2 = j1.getJSONArray("courses");
-                    //   for(int j=0;j<9;j++) {
-                    // System.out.println("SUBJECT :"+Integer.toString(j));
-                    JSONObject mJsonObject = j2.getJSONObject(0);
-                    String oneObjectsItem1 = mJsonObject.getString("name");
-                    System.out.println("Course Name:" + oneObjectsItem1);
-                    JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
-                    for (int i = 0; i < mJsonArrayProperty1.length(); i++) {
-
-                        JSONObject oneObject = mJsonArrayProperty1.getJSONObject(i);
-                        String modno = oneObject.getString("num");
-                        if (!modno.equals("")) {
-                            System.out.println("MODULE:" + modno);
-                            moduleNumber.add("MODULE " + modno);
+            view.setFocusableInTouchMode(true);
+            view.requestFocus();
+            view.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                        if (CheckInternet(view.getContext())) {
+                            Navigation.findNavController(requireView()).navigateUp();
+                            return true;
+                        } else {
+                            Navigation.findNavController(requireView()).navigate(R.id.action_subjectFragment_to_internet);
+                            return true;
                         }
-                        String oneObjectsItem = oneObject.getString("markdown");
-                        String NewString = oneObjectsItem.replace("*", "");
-                        System.out.println(NewString);
-                        moduleDesc.add(NewString);
-                        //  System.out.println("\n");
-
                     }
+                    return false;
+                }
+            });
+
+
+            Bundle bundle = this.getArguments();
+            assert bundle != null;
+            String descUrl = bundle.getString("detailsURL");
+            String subHead = bundle.getString("subjectHeader");
+
+            String subDet = bundle.getString("subjectDetails");
+            String[] words = subDet.split("\\s");
+
+            String courseCode = words[2].toLowerCase();
+
+            subjectName.setText(subHead + " " + words[2]);
+
+            //branchName = bundle.getString("branchName");
+            //subjectPos = bundle.getInt("subjectPosition");
+            //arraySize = bundle.getInt("arraySize");
+
+            ArrayList<String> moduleNumber = new ArrayList<String>();
+            ArrayList<String> moduleDesc = new ArrayList<String>();
+
+            //This is your link to be parsed.
+            courseApi = "https://studiesguide.herokuapp.com/courses/studyhubapp/" + courseCode;
+            StringRequest stringRequest = new StringRequest(courseApi, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        //   final ProgressDialog dialog= CoursesFragment.DialogUtils.showProgressDialog(getActivity(),"Loading...");
+                        JSONObject j1 = new JSONObject(response);
+                        JSONArray j2 = j1.getJSONArray("courses");
+                        //   for(int j=0;j<9;j++) {
+                        // System.out.println("SUBJECT :"+Integer.toString(j));
+                        JSONObject mJsonObject = j2.getJSONObject(0);
+                        String oneObjectsItem1 = mJsonObject.getString("name");
+                        System.out.println("Course Name:" + oneObjectsItem1);
+                        JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
+                        for (int i = 0; i < mJsonArrayProperty1.length(); i++) {
+
+                            JSONObject oneObject = mJsonArrayProperty1.getJSONObject(i);
+                            String modno = oneObject.getString("num");
+                            if (!modno.equals("")) {
+                                System.out.println("MODULE:" + modno);
+                                moduleNumber.add("MODULE " + modno);
+                            }
+                            String oneObjectsItem = oneObject.getString("markdown");
+                            String NewString = oneObjectsItem.replace("*", "");
+                            System.out.println(NewString);
+                            moduleDesc.add(NewString);
+                            //  System.out.println("\n");
+
+                        }
 //                    Handler handler = new Handler();
 //                    handler.postDelayed(new Runnable() {
 //                        public void run() {
 //                            dialog.dismiss();
 //                        }
 //                    }, 3000); // 3000 milliseconds delay
-                    ConstraintLayout layout = getActivity().findViewById(R.id.progress);
-                    layout.setVisibility(View.GONE);
-                    //Diag.removeSimpleProgressDialog();
+                        ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                        layout.setVisibility(View.GONE);
+                        //Diag.removeSimpleProgressDialog();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    subjectRecycler = view.findViewById(R.id.subject_recycler);
+                    subjectList = new ArrayList<>();
+
+                    for (int i = 0; i < moduleNumber.size(); i++) {
+                        subjectList.add(new Subject(moduleNumber.get(i), moduleDesc.get(i)));
+                    }
+                    setSubjectRecycler(subjectList);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i("branch: ", "error");
+                }
+            });
+            RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
+            requestQueue.add(stringRequest);
+
+            try {
+                //String uri = "https://studyhub.vinnovateit.com/courses/603f82d34b48f40004358e53";
+                String uri = descUrl;
+                Document doc = (Document) Jsoup.connect(uri).get();
+                Elements data = doc.select("div.note");
+                Elements p = data.select("p");
+
+                CardView c = view.findViewById(R.id.notescard);
+                String d = "";
+                // t.setTypeface(null, Typeface.NORMAL);
+                t.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        getResources().getDimension(R.dimen.content));
+                for (Element x : p) {
+                    d += d + x.text();
+                    if (!x.text().equals("")) {
+                        t.setText(t.getText() + x.text().trim());
+                    }
+                    t.setText(t.getText() + "\n" + x.select("a").attr("abs:href").trim() + "\n");
+                }
+                if (d.equals("")) {
+                    c.setVisibility(View.GONE);
                 }
 
-                subjectRecycler = view.findViewById(R.id.subject_recycler);
-                subjectList = new ArrayList<>();
-
-                for (int i = 0; i < moduleNumber.size(); i++) {
-                    subjectList.add(new Subject(moduleNumber.get(i), moduleDesc.get(i)));
-                }
-                setSubjectRecycler(subjectList);
-
+            }catch (Exception e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("branch: ", "error");
-            }
-        });
-        RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
-        requestQueue.add(stringRequest);
-
-        try {
-            //String uri = "https://studyhub.vinnovateit.com/courses/603f82d34b48f40004358e53";
-            String uri = descUrl;
-            Document doc = (Document) Jsoup.connect(uri).get();
-            Elements data = doc.select("div.note");
-            Elements p = data.select("p");
-
-            CardView c = view.findViewById(R.id.notescard);
-            String d = "";
-            // t.setTypeface(null, Typeface.NORMAL);
-            t.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    getResources().getDimension(R.dimen.content));
-            for (Element x : p) {
-                d += d + x.text();
-                if (!x.text().equals("")) {
-                    t.setText(t.getText() + x.text().trim());
-                }
-                t.setText(t.getText() + "\n" + x.select("a").attr("abs:href").trim() + "\n");
-            }
-            if (d.equals("")) {
-                c.setVisibility(View.GONE);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return view;
     }

@@ -2,6 +2,7 @@ package com.vinnovateit.studyhub;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 
@@ -32,6 +33,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -44,6 +49,29 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     List<Course> courseList;
     Integer len;
     String subject;
+    static public boolean isURLReachable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnected()) {
+            try {
+                URL url = new URL("https://studyhub.vinnovateit.com");
+                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
+                urlc.setConnectTimeout(10 * 1000);          // 10 s.
+                urlc.connect();
+                if (urlc.getResponseCode() == 200) {        // 200 = "OK" code (http connection is fine).
+                    Log.wtf("Connection", "Success !");
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (MalformedURLException e1) {
+                return false;
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        return false;
+    }
 
     public static boolean CheckInternet(Context context) {
         ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -66,7 +94,8 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_courses, container, false);
-        name = view.findViewById(R.id.subjectName);
+        if(isURLReachable(getContext())) {
+            name = view.findViewById(R.id.subjectName);
             details = view.findViewById(R.id.subjectDetails);
             branchHead = view.findViewById(R.id.branchName);
             Bundle bundle = this.getArguments();
@@ -119,7 +148,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     ConstraintLayout layout = getActivity().findViewById(R.id.progress);
                     layout.setVisibility(View.GONE);
                     //Diag.removeSimpleProgressDialog();
-                } catch (Exception e) {
+                }catch (Exception e) {
                     Toast.makeText(view.getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
 
@@ -133,7 +162,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
             }
             setCourseRecycler(courseList);
 
-
+        }
         return view;
     }
 
@@ -161,6 +190,8 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
 
     @Override
     public void onCourseClick(int position) {
+        if(isURLReachable(getContext()))
+        {
         if (!CheckInternet(getContext())) {
             Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_internet);
         }
@@ -177,5 +208,6 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
             bundle.putInt("arraySize", len);
             Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_subjectFragment, bundle);
         }
+    }
     }
 }
