@@ -1,5 +1,6 @@
 package com.vinnovateit.studyhub;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -54,6 +56,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 
 public class BranchFragment extends Fragment implements SearchAdapter.OnSearchListener {
     CardView it, cse, uc;
@@ -64,6 +68,14 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
     ImageButton search;
     EditText searchRes;
     private long pressedTime;
+    public void hideKeyboard() {
+        // Check if no view has focus:
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
     static public boolean isURLReachable(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -182,11 +194,15 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
             search.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    hideKeyboard();
                     String text=searchRes.getText().toString();
-                    if(text==null){
-                        Toast.makeText(getContext(),"Sorry",Toast.LENGTH_SHORT).show();
+                    if(text.equals("")){
+                        searchRes.setError("Cannot be Empty");
+                        //Toast.makeText(getContext(),"Sorry",Toast.LENGTH_SHORT).show();
                     }
                     else{
+                        ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                        layout.setVisibility(View.VISIBLE);
                         ArrayList<String> header = new ArrayList<String>();
                         ArrayList<String> course = new ArrayList<String>();
                         ArrayList<String> courseDetails = new ArrayList<String>();
@@ -202,32 +218,43 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
 
                                     JSONObject j1 = new JSONObject(response);
                                     JSONArray j2 = j1.getJSONArray("courses");
-                                    //   for(int j=0;j<9;j++) {
-                                    // System.out.println("SUBJECT :"+Integer.toString(j));
-                                    for(int j=0;j<j2.length();j++) {
+                                    if (j2.length() > 0)
+                                    {
+                                        //   for(int j=0;j<9;j++) {
+                                        // System.out.println("SUBJECT :"+Integer.toString(j));
+                                        for (int j = 0; j < j2.length(); j++) {
 
-                                        JSONObject mJsonObject = j2.getJSONObject(j);
-                                        String oneObjectsItem1 = mJsonObject.getString("name");
-                                        String oneObjectsItem2 = mJsonObject.getString("_id");
-                                        String oneObjectsItem3 = mJsonObject.getString("code");
-                                        String oneObjectsItem4 = mJsonObject.getString("credits");
-                                        Log.i("id",oneObjectsItem2);
-                                        Log.i("Course Name:",oneObjectsItem1);
+                                            JSONObject mJsonObject = j2.getJSONObject(j);
+                                            String oneObjectsItem1 = mJsonObject.getString("name");
+                                            String oneObjectsItem2 = mJsonObject.getString("_id");
+                                            String oneObjectsItem3 = mJsonObject.getString("code");
+                                            String oneObjectsItem4 = mJsonObject.getString("credits");
+                                            Log.i("id", oneObjectsItem2);
+                                            Log.i("Course Name:", oneObjectsItem1);
 
-                                        header.add(camelCase(oneObjectsItem1));
-                                        courseDetails.add("https://studyhub.vinnovateit.com/courses/"+oneObjectsItem2);
+                                            header.add(camelCase(oneObjectsItem1));
+                                            courseDetails.add("https://studyhub.vinnovateit.com/courses/" + oneObjectsItem2);
 
 
-                                        JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
-                                        //  Log.i("Modules:",Integer.toString(mJsonArrayProperty1.length()));
-                                        Log.i("test","Code - "+ oneObjectsItem3+"\n"+"Credits - "+ oneObjectsItem4+"\n"+"Modules - "+Integer.toString(mJsonArrayProperty1.length()));
-                                        String str = "Code - "+ oneObjectsItem3+"\n\n"+"Credits - "+ oneObjectsItem4+"\n\n"+"Modules - "+Integer.toString(mJsonArrayProperty1.length());
+                                            JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
+                                            //  Log.i("Modules:",Integer.toString(mJsonArrayProperty1.length()));
+                                            Log.i("test", "Code - " + oneObjectsItem3 + "\n" + "Credits - " + oneObjectsItem4 + "\n" + "Modules - " + Integer.toString(mJsonArrayProperty1.length()));
+                                            String str = "Code - " + oneObjectsItem3 + "\n\n" + "Credits - " + oneObjectsItem4 + "\n\n" + "Modules - " + Integer.toString(mJsonArrayProperty1.length());
 
-                                        course.add(str);
-                                        Log.i("details",header.toString());
-                                        Log.i("details",courseDetails.toString());
-                                        Log.i("details",course.toString());
+                                            course.add(str);
+                                            Log.i("details", header.toString());
+                                            Log.i("details", courseDetails.toString());
+                                            Log.i("details", course.toString());
+                                            searchRes.setText("");
+                                            layout.setVisibility(View.GONE);
 
+                                        }
+                                }
+                                    else
+                                    {
+                                        layout.setVisibility(View.GONE);
+                                        coursesRecyler.setVisibility(View.GONE);
+                                        Toast.makeText(getContext(), "No course found", Toast.LENGTH_SHORT).show();
                                     }
                                 }catch (JSONException e) {
                                     e.printStackTrace();
