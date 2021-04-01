@@ -358,11 +358,51 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
                     }
                 @Override
                 public boolean onQueryTextChange (String newText){
-                    return false;
+                        Log.i("Query change",newText);
+                        return false;
                 }
             } ;
             searchView.setOnQueryTextListener(queryTextListener);
         }
+            searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    if(!b){
+                        view.setFocusableInTouchMode(true);
+                        view.requestFocus();
+                        view.setOnKeyListener(new View.OnKeyListener() {
+                            @Override
+                            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                                if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                    if (relativeLayout.getVisibility()==View.GONE) {
+                                        relativeLayout.setVisibility(View.VISIBLE);
+                                        coursesRecyler.setVisibility(View.GONE);
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            }
+                        });
+                    }
+                    else{
+                        view.setFocusableInTouchMode(true);
+                        view.requestFocus();
+                        view.setOnKeyListener(new View.OnKeyListener() {
+                            @Override
+                            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                                if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                    if (relativeLayout.getVisibility()==View.GONE) {
+                                        relativeLayout.setVisibility(View.VISIBLE);
+                                        coursesRecyler.setVisibility(View.GONE);
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            }
+                        });
+                    }
+                }
+            });
 
 
 
