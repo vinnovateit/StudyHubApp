@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_branchFragment_to_internet"
             app:destination="@id/internet" />
+        <action
+            android:id="@+id/action_branchFragment_to_subjectFragment"
+            app:destination="@id/subjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/coursesFragment2"

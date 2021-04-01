@@ -1,6 +1,7 @@
 package com.vinnovateit.studyhub;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -172,7 +174,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                         }
                     });
                     RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
-            requestQueue.add(stringRequest);
+                    requestQueue.add(stringRequest);
                 try {
                     //  final ProgressDialog dialog=DialogUtils.showProgressDialog(getActivity(),"Loading...");
                     String uri = "https://studiesguide.herokuapp.com" + branch;
