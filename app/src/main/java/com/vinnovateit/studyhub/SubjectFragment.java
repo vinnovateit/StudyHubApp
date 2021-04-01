@@ -155,21 +155,24 @@ public class SubjectFragment extends Fragment {
                         JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
                         JSONArray mJsonArrayProperty2 = mJsonObject.getJSONArray("das");
                         JSONArray mJsonArrayProperty3 = mJsonObject.getJSONArray("pdfs");
-                        for (int i = 0; i < mJsonArrayProperty1.length(); i++) {
 
-                            JSONObject oneObject = mJsonArrayProperty1.getJSONObject(i);
-                            String modno = oneObject.getString("num");
-                            if (!modno.equals("")) {
-                                System.out.println("MODULE:" + modno);
-                                moduleNumber.add("MODULE " + modno);
-                            }
-                            String oneObjectsItem = oneObject.getString("markdown");
-                            String NewString = oneObjectsItem.replace("*", "");
-                            System.out.println(NewString);
-                            moduleDesc.add(NewString);
-                            //  System.out.println("\n");
+                           for (int i = 0; i < mJsonArrayProperty1.length(); i++) {
+                               JSONObject oneObject = mJsonArrayProperty1.getJSONObject(i);
+                               String modno = oneObject.getString("num");
+                               String oneObjectsItem = oneObject.getString("markdown");
+                               String NewString = oneObjectsItem.replace("*", "");
+                               if(!NewString.equals("")) {
+                                   if (!modno.equals("")) {
+                                       System.out.println("MODULE:" + modno);
+                                       moduleNumber.add("MODULE " + modno);
+                                   }
 
-                        }
+                                   moduleDesc.add(NewString);
+                               }
+                               //  System.out.println("\n");
+
+
+                       }
                         if(mJsonArrayProperty3.length()>0)
                         {
                             String p="";
