@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -62,6 +63,7 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
     List<Search> courseList;
     ImageButton search;
     EditText searchRes;
+    private long pressedTime;
     static public boolean isURLReachable(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -106,12 +108,14 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
             uc = view.findViewById(R.id.uc);
 
             RelativeLayout relativeLayout = view.findViewById(R.id.home_layout);
+            coursesRecyler=view.findViewById(R.id.home_recycler);
 
             search=view.findViewById(R.id.searchButton);
             searchRes=view.findViewById(R.id.searchView);
-            ArrayList<String> header = new ArrayList<String>();
-            ArrayList<String> course = new ArrayList<String>();
-            ArrayList<String> courseDetails = new ArrayList<String>();
+
+            RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            coursesRecyler.setLayoutManager(layoutManager);
+            coursesRecyler.setHasFixedSize(true);
 
             insta = view.findViewById(R.id.instagram);
             github = view.findViewById(R.id.github);
@@ -183,7 +187,11 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
                         Toast.makeText(getContext(),"Sorry",Toast.LENGTH_SHORT).show();
                     }
                     else{
+                        ArrayList<String> header = new ArrayList<String>();
+                        ArrayList<String> course = new ArrayList<String>();
+                        ArrayList<String> courseDetails = new ArrayList<String>();
                         relativeLayout.setVisibility(View.GONE);
+                        coursesRecyler.setVisibility(View.VISIBLE);
                         Log.i("text",text);
                         String test= "https://studiesguide.herokuapp.com/courses/studyhubapp/"+text;
                         Log.i("link",test);
@@ -224,7 +232,6 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
                                 }catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                coursesRecyler=view.findViewById(R.id.home_recycler);
                                 courseList = new ArrayList<>();
 
                                 for (int i = 0; i < course.size(); i++) {
@@ -241,6 +248,21 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
                         RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
                         requestQueue.add(stringRequest);
                     }
+                    view.setFocusableInTouchMode(true);
+                    view.requestFocus();
+                    view.setOnKeyListener(new View.OnKeyListener() {
+                        @Override
+                        public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                            if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                if (relativeLayout.getVisibility()==View.GONE) {
+                                    relativeLayout.setVisibility(View.VISIBLE);
+                                    coursesRecyler.setVisibility(View.GONE);
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }
+                    });
                 }
             });
             view.setFocusableInTouchMode(true);
@@ -248,20 +270,26 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
             view.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                    if(keyCode==KeyEvent.KEYCODE_BACK && keyEvent.getAction()==KeyEvent.ACTION_UP){
-                        coursesRecyler.setVisibility(View.GONE);
-                        relativeLayout.setVisibility(View.VISIBLE);
-                            Navigation.findNavController(requireView()).navigateUp();
-                            return true;}
+                    if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                        if (pressedTime + 4000 > System.currentTimeMillis()) {
+                            getActivity().finish();
+                            return true;
+                        }
+                        else{
+                            Toast.makeText(getContext(),"Press back again to exit!",Toast.LENGTH_SHORT).show();
+                            pressedTime=System.currentTimeMillis();
+                            return true;
+                        }
+                    }
                     return false;
                 }
             });
-
         }
         else
         {
             Toast.makeText(getContext(), "Server is currently down!", Toast.LENGTH_SHORT).show();
         }
+
         return view;
     }
     private String camelCase(String text) {
@@ -278,9 +306,6 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
     }
 
     private void setCourseRecycler(List<Search> courseList) {
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        coursesRecyler.setLayoutManager(layoutManager);
-        coursesRecyler.setHasFixedSize(true);
         courseAdapter = new SearchAdapter(requireContext(), courseList, this);
         coursesRecyler.setAdapter(courseAdapter);
     }
