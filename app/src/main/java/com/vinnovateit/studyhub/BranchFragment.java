@@ -253,7 +253,7 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
                                     else
                                     {
                                         layout.setVisibility(View.GONE);
-                                        coursesRecyler.setVisibility(View.GONE);
+                                      //  coursesRecyler.setVisibility(View.GONE);
                                         Toast.makeText(getContext(), "No course found", Toast.LENGTH_SHORT).show();
                                     }
                                 }catch (JSONException e) {
