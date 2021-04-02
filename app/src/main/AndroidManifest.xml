@@ -12,6 +12,7 @@
         android:theme="@style/SplashScreenTheme">
         <activity android:name=".MainActivity"
             android:configChanges="uiMode"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:screenOrientation="portrait"
             >
             <intent-filter>
