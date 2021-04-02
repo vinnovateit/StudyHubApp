@@ -141,7 +141,7 @@ public class BranchFragment extends Fragment {
                     ConstraintLayout layout = getActivity().findViewById(R.id.progress);
                     layout.setVisibility(View.VISIBLE);
                     //Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
-                    Log.i("internet", "working");
+               //    Log.i("internet", "working");
                     Bundle bundle = new Bundle();
                     bundle.putString("branch", "/branch/it");
                     bundle.putString("name", "IT");
@@ -170,7 +170,6 @@ public class BranchFragment extends Fragment {
                 if (CheckInternet(view.getContext())) {
                     ConstraintLayout layout = getActivity().findViewById(R.id.progress);
                     layout.setVisibility(View.VISIBLE);
-                    //Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
                     Bundle bundle = new Bundle();
                     bundle.putString("branch", "/branch/uc");
                     bundle.putString("name", "U.C.");
