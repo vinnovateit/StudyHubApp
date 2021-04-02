@@ -16,8 +16,8 @@
             android:id="@+id/action_branchFragment_to_internet"
             app:destination="@id/internet" />
         <action
-            android:id="@+id/action_branchFragment_to_subjectFragment"
-            app:destination="@id/subjectFragment" />
+            android:id="@+id/action_branchFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/coursesFragment2"
@@ -45,4 +45,13 @@
         android:name="com.vinnovateit.studyhub.internet"
         android:label="fragment_internet"
         tools:layout="@layout/fragment_internet" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.vinnovateit.studyhub.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+    <action
+        android:id="@+id/action_searchFragment_to_subjectFragment"
+        app:destination="@id/subjectFragment" />
+    </fragment>
 </navigation>
