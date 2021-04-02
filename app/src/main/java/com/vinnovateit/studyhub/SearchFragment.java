@@ -69,7 +69,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
                 urlc.setConnectTimeout(10 * 1000);          // 10 s.
                 urlc.connect();
                 if (urlc.getResponseCode() == 200) {        // 200 = "OK" code (http connection is fine).
-                    Log.wtf("Connection", "Success !");
                     return true;
                 } else {
                     return false;
@@ -106,14 +105,12 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
             RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
             coursesRecyler.setLayoutManager(layoutManager);
             coursesRecyler.setHasFixedSize(true);
-
             searchView=(EditText) view.findViewById(R.id.searchText);
             Bundle bundle = this.getArguments();
             assert bundle != null;
             String searchText = bundle.getString("search");
-            Log.i("searchText",searchText);
+          //  Log.i("searchText",searchText);
             searchView.setText(searchText);
-
             hideKeyboard();
             ConstraintLayout layout = getActivity().findViewById(R.id.progress);
             layout.setVisibility(View.VISIBLE);
@@ -139,25 +136,19 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
                                 String oneObjectsItem2 = mJsonObject.getString("_id");
                                 String oneObjectsItem3 = mJsonObject.getString("code");
                                 String oneObjectsItem4 = mJsonObject.getString("credits");
-                                Log.i("id", oneObjectsItem2);
-                                Log.i("Course Name:", oneObjectsItem1);
-
+//                              Log.i("id", oneObjectsItem2);
+//                              Log.i("Course Name:", oneObjectsItem1);
                                 header.add(camelCase(oneObjectsItem1));
                                 courseDetails.add("https://studyhub.vinnovateit.com/courses/" + oneObjectsItem2);
-
-
                                 JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
-                                //  Log.i("Modules:",Integer.toString(mJsonArrayProperty1.length()));
                                 Log.i("test", "Code - " + oneObjectsItem3 + "\n" + "Credits - " + oneObjectsItem4 + "\n" + "Modules - " + Integer.toString(mJsonArrayProperty1.length()));
                                 String str = "Code - " + oneObjectsItem3 + "\n\n" + "Credits - " + oneObjectsItem4 + "\n\n" + "Modules - " + Integer.toString(mJsonArrayProperty1.length());
-
                                 course.add(str);
-                                Log.i("details", header.toString());
-                                Log.i("details", courseDetails.toString());
-                                Log.i("details", course.toString());
+//                                Log.i("details", header.toString());
+//                                Log.i("details", courseDetails.toString());
+//                                Log.i("details", course.toString());
                                 //searchView.setText("");
                                 layout.setVisibility(View.GONE);
-
                                 courseList = new ArrayList<>();
 
                                 for (int i = 0; i < course.size(); i++) {
@@ -236,9 +227,9 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
                                                 String str = "Code - " + oneObjectsItem3 + "\n\n" + "Credits - " + oneObjectsItem4 + "\n\n" + "Modules - " + Integer.toString(mJsonArrayProperty1.length());
 
                                                 course.add(str);
-                                                Log.i("details", header.toString());
-                                                Log.i("details", courseDetails.toString());
-                                                Log.i("details", course.toString());
+//                                                Log.i("details", header.toString());
+//                                                Log.i("details", courseDetails.toString());
+//                                                Log.i("details", course.toString());
                                                 //searchView.setText("");
                                                 layout.setVisibility(View.GONE);
 

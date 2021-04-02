@@ -124,59 +124,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                         .permitAll().build();
                 StrictMode.setThreadPolicy(policy);
-                 test= "https://studiesguide.herokuapp.com/courses/studyhubapp/computer";
-                StringRequest stringRequest = new StringRequest(test, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-
-                            JSONObject j1 = new JSONObject(response);
-                            JSONArray j2 = j1.getJSONArray("courses");
-                            //   for(int j=0;j<9;j++) {
-                            // System.out.println("SUBJECT :"+Integer.toString(j));
-                            for(int j=0;j<j2.length();j++) {
-
-                                JSONObject mJsonObject = j2.getJSONObject(j);
-                                String oneObjectsItem1 = mJsonObject.getString("name");
-                                String oneObjectsItem2 = mJsonObject.getString("_id");
-                                String oneObjectsItem3 = mJsonObject.getString("code");
-                                String oneObjectsItem4 = mJsonObject.getString("credits");
-                                Log.i("id",oneObjectsItem2);
-                                Log.i("Course Name:",oneObjectsItem1);
-//                                Log.i("Code:","Code:"+oneObjectsItem3);
-//                                Log.i("credits","Credits:"+oneObjectsItem4);
-                                JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
-                              //  Log.i("Modules:",Integer.toString(mJsonArrayProperty1.length()));
-                                Log.i("test","Code - "+ oneObjectsItem3+"\n"+"Credits - "+ oneObjectsItem4+"\n"+"Modules - "+Integer.toString(mJsonArrayProperty1.length()));
-//                                for (int i = 0; i < mJsonArrayProperty1.length(); i++) {
-//
-//                                    JSONObject oneObject = mJsonArrayProperty1.getJSONObject(i);
-//                                    String modno = oneObject.getString("num");
-//                                    if (!modno.equals("")) {
-//                                        System.out.println("MODULE:" + modno);
-//
-//                                    }
-//                                    String oneObjectsItem = oneObject.getString("markdown");
-//                                    String NewString = oneObjectsItem.replace("*", "");
-//                                    System.out.println(NewString);
-//                                    //  System.out.println("\n");
-//
-//                                }
-                            }
-                        }catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.i("branch: ", "error");
-                        }
-                    });
-                    RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
-                    requestQueue.add(stringRequest);
                 try {
-                    //  final ProgressDialog dialog=DialogUtils.showProgressDialog(getActivity(),"Loading...");
                     String uri = "https://studiesguide.herokuapp.com" + branch;
                     Document doc = (Document) Jsoup.connect(uri).get();
                     Elements data = doc.select("div.row");
@@ -208,7 +156,6 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
                     len = header.size();
                     ConstraintLayout layout = getActivity().findViewById(R.id.progress);
                     layout.setVisibility(View.GONE);
-                    //Diag.removeSimpleProgressDialog();
                 }catch (Exception e) {
                     Toast.makeText(view.getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
