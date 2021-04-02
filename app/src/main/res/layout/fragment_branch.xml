@@ -78,7 +78,7 @@
                         android:layout_height="50dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:background="#2E97AA" />
+                        android:background="#fff" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -135,7 +135,7 @@
                         android:layout_height="50dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:background="#FFB17B" />
+                        android:background="#fff" />
 
                     <TextView
                         android:layout_width="74dp"
