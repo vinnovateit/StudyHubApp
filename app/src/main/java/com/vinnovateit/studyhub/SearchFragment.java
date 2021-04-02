@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
     SearchAdapter courseAdapter;
     List<Search> courseList;
     private EditText searchView;
+    LinearLayout no_results;
 
     public void hideKeyboard() {
         // Check if no view has focus:
@@ -100,6 +102,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         if(isURLReachable(getContext())) {
             coursesRecyler=view.findViewById(R.id.home_recycler);
+            no_results=view.findViewById(R.id.no_results);
             RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
             coursesRecyler.setLayoutManager(layoutManager);
             coursesRecyler.setHasFixedSize(true);
@@ -119,6 +122,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
             ArrayList<String> course = new ArrayList<String>();
             ArrayList<String> courseDetails = new ArrayList<String>();
             coursesRecyler.setVisibility(View.VISIBLE);
+            no_results.setVisibility(View.GONE);
             String test = "https://studiesguide.herokuapp.com/courses/studyhubapp/" + searchText;
             StringRequest stringRequest = new StringRequest(test, new Response.Listener<String>() {
                 @Override
@@ -165,8 +169,9 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
                         } else {
                             layout.setVisibility(View.GONE);
                             coursesRecyler.setVisibility(View.GONE);
+                            no_results.setVisibility(View.VISIBLE);
                             //Insert a pic here instead
-                            Toast.makeText(getContext(), "No course found", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), "No course found", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -201,6 +206,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
                             ArrayList<String> course = new ArrayList<String>();
                             ArrayList<String> courseDetails = new ArrayList<String>();
                             coursesRecyler.setVisibility(View.VISIBLE);
+                            no_results.setVisibility(View.GONE);
                             String test = "https://studiesguide.herokuapp.com/courses/studyhubapp/" + text;
                             StringRequest stringRequest = new StringRequest(test, new Response.Listener<String>() {
                                 @Override
@@ -247,8 +253,9 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
                                         } else {
                                             layout.setVisibility(View.GONE);
                                             coursesRecyler.setVisibility(View.GONE);
+                                            no_results.setVisibility(View.VISIBLE);
                                             //Insert a pic here instead
-                                            Toast.makeText(getContext(), "No course found", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getContext(), "No course found", Toast.LENGTH_SHORT).show();
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
