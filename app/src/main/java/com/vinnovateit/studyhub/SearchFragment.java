@@ -292,7 +292,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
         if(isURLReachable(getContext()))
         {
             if (!CheckInternet(getContext())) {
-                Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_internet);
+                Navigation.findNavController(requireView()).navigate(R.id.action_searchFragment_to_internet);
             }
             else {
                 ConstraintLayout layout = getActivity().findViewById(R.id.progress);

@@ -53,5 +53,8 @@
     <action
         android:id="@+id/action_searchFragment_to_subjectFragment"
         app:destination="@id/subjectFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_internet"
+            app:destination="@id/internet" />
     </fragment>
 </navigation>
