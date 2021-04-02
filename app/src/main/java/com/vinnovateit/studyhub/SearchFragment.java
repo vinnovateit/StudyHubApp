@@ -195,6 +195,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
                             searchView.setError("Cannot be empty");
                         } else {
                             hideKeyboard();
+                            if(CheckInternet(view.getContext())) {
                             ConstraintLayout layout = getActivity().findViewById(R.id.progress);
                             layout.setVisibility(View.VISIBLE);
 
@@ -265,6 +266,10 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
                             });
                             RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
                             requestQueue.add(stringRequest);
+                        }
+                            else{
+                                Navigation.findNavController(requireView()).navigate(R.id.action_searchFragment_to_internet);
+                            }
                         }
                         return true;
                     }
