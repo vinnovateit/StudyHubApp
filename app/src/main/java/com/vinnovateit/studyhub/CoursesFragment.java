@@ -59,28 +59,32 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     List<Course> courseList;
     Integer len;
     String subject;
-    static public boolean isURLReachable(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnected()) {
-            try {
-                URL url = new URL("https://studyhub.vinnovateit.com");
-                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
-                urlc.setConnectTimeout(10 * 1000);          // 10 s.
-                urlc.connect();
-                if (urlc.getResponseCode() == 200) {        // 200 = "OK" code (http connection is fine).
-                    Log.wtf("Connection", "Success !");
-                    return true;
-                } else {
+    public boolean isURLReachable(Context context) {
+        if(CheckInternet(context)) {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnected()) {
+                try {
+                    URL url = new URL("https://studyhub.vinnovateit.com");
+                    HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
+                    urlc.setConnectTimeout(10 * 1000);          // 10 s.
+                    urlc.connect();
+                    if (urlc.getResponseCode() == 200) {        // 200 = "OK" code (http connection is fine).
+                        Log.wtf("Connection", "Success !");
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }catch (MalformedURLException e1) {
+                    return false;
+                }catch (IOException e) {
                     return false;
                 }
-            } catch (MalformedURLException e1) {
-                return false;
-            } catch (IOException e) {
-                return false;
             }
+            return false;
         }
-        return false;
+        return true;
+
     }
 
     public static boolean CheckInternet(Context context) {
