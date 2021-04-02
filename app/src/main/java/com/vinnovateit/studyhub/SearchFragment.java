@@ -59,27 +59,32 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
-    static public boolean isURLReachable(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnected()) {
-            try {
-                URL url = new URL("https://studyhub.vinnovateit.com");
-                HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
-                urlc.setConnectTimeout(10 * 1000);          // 10 s.
-                urlc.connect();
-                if (urlc.getResponseCode() == 200) {        // 200 = "OK" code (http connection is fine).
-                    return true;
-                } else {
+    public boolean isURLReachable(Context context) {
+        if(CheckInternet(context)) {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnected()) {
+                try {
+                    URL url = new URL("https://studyhub.vinnovateit.com");
+                    HttpURLConnection urlc = (HttpURLConnection) url.openConnection();
+                    urlc.setConnectTimeout(10 * 1000);          // 10 s.
+                    urlc.connect();
+                    if (urlc.getResponseCode() == 200) {        // 200 = "OK" code (http connection is fine).
+                        Log.wtf("Connection", "Success !");
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }catch (MalformedURLException e1) {
+                    return false;
+                }catch (IOException e) {
                     return false;
                 }
-            } catch (MalformedURLException e1) {
-                return false;
-            } catch (IOException e) {
-                return false;
             }
+            return false;
         }
-        return false;
+        return true;
+
     }
     public static boolean CheckInternet(Context context)
     {
@@ -289,12 +294,10 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
     }
     @Override
     public void onSearchClick(int position) {
-        if(isURLReachable(getContext()))
-        {
+        if (isURLReachable(getContext())) {
             if (!CheckInternet(getContext())) {
                 Navigation.findNavController(requireView()).navigate(R.id.action_searchFragment_to_internet);
-            }
-            else {
+            } else {
                 ConstraintLayout layout = getActivity().findViewById(R.id.progress);
                 layout.setVisibility(View.VISIBLE);
                 //Diag.showSimpleProgressDialog(getContext(), "STUDY HUB", "Loading", false);
