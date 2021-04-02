@@ -1,5 +1,6 @@
 package com.vinnovateit.studyhub;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -25,11 +26,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -56,18 +59,22 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class BranchFragment extends Fragment implements SearchAdapter.OnSearchListener {
+public class BranchFragment extends Fragment {
     CardView it, cse, uc;
     ImageView insta, github, twitter;
-    RecyclerView coursesRecyler;
-    SearchAdapter courseAdapter;
-    List<Search> courseList;
-    //ImageButton search;
-    //EditText searchRes;
-    private SearchView searchView;
-    private SearchView.OnQueryTextListener queryTextListener;
-
+    private EditText searchView;
     private long pressedTime;
+
+    public void hideKeyboard() {
+        // Check if no view has focus:
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+
     static public boolean isURLReachable(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -105,21 +112,13 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_branch,
                 container, false);
-        if (isURLReachable(getContext())) {
+        if(isURLReachable(getContext())) {
 
             it = view.findViewById(R.id.it);
             cse = view.findViewById(R.id.cse);
             uc = view.findViewById(R.id.uc);
 
-            RelativeLayout relativeLayout = view.findViewById(R.id.home_layout);
-            coursesRecyler = view.findViewById(R.id.home_recycler);
-
-            //search=view.findViewById(R.id.searchButton);
-            //searchRes=view.findViewById(R.id.searchView);
-
-            RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-            coursesRecyler.setLayoutManager(layoutManager);
-            coursesRecyler.setHasFixedSize(true);
+            searchView=(EditText) view.findViewById(R.id.searchView);
 
             insta = view.findViewById(R.id.instagram);
             github = view.findViewById(R.id.github);
@@ -182,191 +181,29 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
                 }
             });
 
-
-            /*search.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String text=searchRes.getText().toString();
-                    if(text==null){
-                        Toast.makeText(getContext(),"Sorry",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        ArrayList<String> header = new ArrayList<String>();
-                        ArrayList<String> course = new ArrayList<String>();
-                        ArrayList<String> courseDetails = new ArrayList<String>();
-                        relativeLayout.setVisibility(View.GONE);
-                        coursesRecyler.setVisibility(View.VISIBLE);
-                        Log.i("text",text);
-                        String test= "https://studiesguide.herokuapp.com/courses/studyhubapp/"+text;
-                        Log.i("link",test);
-                        StringRequest stringRequest = new StringRequest(test, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-
-                                    JSONObject j1 = new JSONObject(response);
-                                    JSONArray j2 = j1.getJSONArray("courses");
-                                    //   for(int j=0;j<9;j++) {
-                                    // System.out.println("SUBJECT :"+Integer.toString(j));
-                                    for(int j=0;j<j2.length();j++) {
-
-                                        JSONObject mJsonObject = j2.getJSONObject(j);
-                                        String oneObjectsItem1 = mJsonObject.getString("name");
-                                        String oneObjectsItem2 = mJsonObject.getString("_id");
-                                        String oneObjectsItem3 = mJsonObject.getString("code");
-                                        String oneObjectsItem4 = mJsonObject.getString("credits");
-                                        Log.i("id",oneObjectsItem2);
-                                        Log.i("Course Name:",oneObjectsItem1);
-
-                                        header.add(camelCase(oneObjectsItem1));
-                                        courseDetails.add("https://studyhub.vinnovateit.com/courses/"+oneObjectsItem2);
-
-
-                                        JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
-                                        //  Log.i("Modules:",Integer.toString(mJsonArrayProperty1.length()));
-                                        Log.i("test","Code - "+ oneObjectsItem3+"\n"+"Credits - "+ oneObjectsItem4+"\n"+"Modules - "+Integer.toString(mJsonArrayProperty1.length()));
-                                        String str = "Code - "+ oneObjectsItem3+"\n\n"+"Credits - "+ oneObjectsItem4+"\n\n"+"Modules - "+Integer.toString(mJsonArrayProperty1.length());
-
-                                        course.add(str);
-                                        Log.i("details",header.toString());
-                                        Log.i("details",courseDetails.toString());
-                                        Log.i("details",course.toString());
-
-                                    }
-                                }catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                courseList = new ArrayList<>();
-
-                                for (int i = 0; i < course.size(); i++) {
-                                    courseList.add(new Search(header.get(i), course.get(i), courseDetails.get(i), i));
-                                }
-                                setCourseRecycler(courseList);
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.i("branch: ", "error");
-                            }
-                        });
-                        RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
-                        requestQueue.add(stringRequest);
-                    }
-                    view.setFocusableInTouchMode(true);
-                    view.requestFocus();
-                    view.setOnKeyListener(new View.OnKeyListener() {
-                        @Override
-                        public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                            if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                                if (relativeLayout.getVisibility()==View.GONE) {
-                                    relativeLayout.setVisibility(View.VISIBLE);
-                                    coursesRecyler.setVisibility(View.GONE);
-                                    return true;
-                                }
-                            }
-                            return false;
-                        }
-                    });
-                }
-            });*/
-
-            searchView=(SearchView)view.findViewById(R.id.searchView);
             searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-            if (searchView != null) {
-                queryTextListener = new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        searchView.clearFocus();
-
-                        ArrayList<String> header = new ArrayList<String>();
-                        ArrayList<String> course = new ArrayList<String>();
-                        ArrayList<String> courseDetails = new ArrayList<String>();
-                        relativeLayout.setVisibility(View.GONE);
-                        coursesRecyler.setVisibility(View.VISIBLE);
-                        String text = query;
-                        String test = "https://studiesguide.herokuapp.com/courses/studyhubapp/" + text;
-                        StringRequest stringRequest = new StringRequest(test, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-
-                                    JSONObject j1 = new JSONObject(response);
-                                    JSONArray j2 = j1.getJSONArray("courses");
-                                    //   for(int j=0;j<9;j++) {
-                                    // System.out.println("SUBJECT :"+Integer.toString(j));
-                                    for (int j = 0; j < j2.length(); j++) {
-
-                                        JSONObject mJsonObject = j2.getJSONObject(j);
-                                        String oneObjectsItem1 = mJsonObject.getString("name");
-                                        String oneObjectsItem2 = mJsonObject.getString("_id");
-                                        String oneObjectsItem3 = mJsonObject.getString("code");
-                                        String oneObjectsItem4 = mJsonObject.getString("credits");
-                                        Log.i("id", oneObjectsItem2);
-                                        Log.i("Course Name:", oneObjectsItem1);
-
-                                        header.add(camelCase(oneObjectsItem1));
-                                        courseDetails.add("https://studyhub.vinnovateit.com/courses/" + oneObjectsItem2);
-
-
-                                        JSONArray mJsonArrayProperty1 = mJsonObject.getJSONArray("modules");
-                                        //  Log.i("Modules:",Integer.toString(mJsonArrayProperty1.length()));
-                                        Log.i("test", "Code - " + oneObjectsItem3 + "\n" + "Credits - " + oneObjectsItem4 + "\n" + "Modules - " + Integer.toString(mJsonArrayProperty1.length()));
-                                        String str = "Code - " + oneObjectsItem3 + "\n\n" + "Credits - " + oneObjectsItem4 + "\n\n" + "Modules - " + Integer.toString(mJsonArrayProperty1.length());
-
-                                        course.add(str);
-                                        Log.i("details", header.toString());
-                                        Log.i("details", courseDetails.toString());
-                                        Log.i("details", course.toString());
-
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                courseList = new ArrayList<>();
-
-                                for (int i = 0; i < course.size(); i++) {
-                                    courseList.add(new Search(header.get(i), course.get(i), courseDetails.get(i), i));
-                                }
-                                setCourseRecycler(courseList);
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.i("branch: ", "error");
-                            }
-                        });
-                        RequestQueue requestQueue = Volley.newRequestQueue(view.getContext());
-                        requestQueue.add(stringRequest);
-
-                        view.setFocusableInTouchMode(true);
-                        view.requestFocus();
-                        view.setOnKeyListener(new View.OnKeyListener() {
-                            @Override
-                            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                                if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                                    if (relativeLayout.getVisibility()==View.GONE) {
-                                        relativeLayout.setVisibility(View.VISIBLE);
-                                        coursesRecyler.setVisibility(View.GONE);
-                                        return true;
-                                    }
-                                }
-                                return false;
-                            }
-                        });
-
+            searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    if (i == EditorInfo.IME_ACTION_SEARCH) {
+                        String text = searchView.getText().toString();
+                        if (text.equals("")) {
+                            //Toast.makeText(getContext(), "Sorry", Toast.LENGTH_SHORT).show();
+                            searchView.setError("Cannot be empty");
+                        } else {
+                            hideKeyboard();
+                            ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                            layout.setVisibility(View.VISIBLE);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("search",text);
+                            Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_searchFragment, bundle);
+                            searchView.setText("");
+                        }
                         return true;
                     }
-                @Override
-                public boolean onQueryTextChange (String newText){
                     return false;
                 }
-            } ;
-            searchView.setOnQueryTextListener(queryTextListener);
-        }
-
-
-
-
+            });
 
             view.setFocusableInTouchMode(true);
             view.requestFocus();
@@ -395,42 +232,6 @@ public class BranchFragment extends Fragment implements SearchAdapter.OnSearchLi
 
         return view;
     }
-    private String camelCase(String text) {
-        String s = text;
-        String line = s.toLowerCase();
-        String upper_case_line = "";
-        Scanner lineScan = new Scanner(line);
-        while (lineScan.hasNext()) {
-            String word = lineScan.next();
-            upper_case_line += Character.toUpperCase(word.charAt(0)) + word.substring(1) + " ";
-        }
 
-        return (upper_case_line.trim());
-    }
-
-    private void setCourseRecycler(List<Search> courseList) {
-        courseAdapter = new SearchAdapter(requireContext(), courseList, this);
-        coursesRecyler.setAdapter(courseAdapter);
-    }
-    @Override
-    public void onSearchClick(int position) {
-        if(isURLReachable(getContext()))
-        {
-            if (!CheckInternet(getContext())) {
-                Navigation.findNavController(requireView()).navigate(R.id.action_coursesFragment2_to_internet);
-            }
-            else {
-                ConstraintLayout layout = getActivity().findViewById(R.id.progress);
-                layout.setVisibility(View.VISIBLE);
-                //Diag.showSimpleProgressDialog(getContext(), "STUDY HUB", "Loading", false);
-                Bundle bundle = new Bundle();
-                bundle.putString("detailsURL", courseList.get(position).getDescUrl());
-                bundle.putString("subjectHeader", courseList.get(position).getHeader());
-                bundle.putString("subjectDetails", courseList.get(position).getDetails());
-                bundle.putInt("subjectPosition", courseList.get(position).getPos());
-                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_subjectFragment, bundle);
-            }
-        }
-    }
 
 }
