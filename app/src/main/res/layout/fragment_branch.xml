@@ -15,7 +15,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/studyhubnewlogo" />
+        android:src="@drawable/sh" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_marginTop="40dp"
                 android:fontFamily="@font/gothammedium"
                 android:text="@string/courses"
-                android:textColor="@color/teal_200"
+                android:textColor="#3B82F6"
                 android:textSize="40sp" />
 
             <RelativeLayout
