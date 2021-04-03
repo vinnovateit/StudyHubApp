@@ -41,7 +41,7 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:padding="5dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/mainText" />
 
             <TextView
                 android:id="@+id/coursesTextView"
