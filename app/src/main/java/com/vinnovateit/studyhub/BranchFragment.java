@@ -222,7 +222,7 @@ public class BranchFragment extends Fragment {
                 @Override
                 public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                     if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                        if (pressedTime + 4000 > System.currentTimeMillis()) {
+                        if (pressedTime + 3000 > System.currentTimeMillis()) {
                             getActivity().finish();
                             return true;
                         }
