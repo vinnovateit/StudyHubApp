@@ -15,7 +15,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/studhub" />
+        android:src="@drawable/studyhubnewlogo" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,14 +33,15 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:background="@drawable/rounded_text"
                 android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="5dp"
                 android:hint="Search"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/coursesTextView"
@@ -155,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
+                android:layout_gravity="bottom|center"
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="20dp">
 
