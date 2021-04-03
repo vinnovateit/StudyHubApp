@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -64,6 +65,18 @@ public class BranchFragment extends Fragment {
     ImageView insta, github, twitter;
     private EditText searchView;
     private long pressedTime;
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+    }
 
     public void hideKeyboard() {
         // Check if no view has focus:

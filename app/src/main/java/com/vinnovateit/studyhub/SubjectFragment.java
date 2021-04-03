@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -59,6 +60,19 @@ public class SubjectFragment extends Fragment {
     RecyclerView subjectRecycler;
     SubjectAdapter subjectAdapter;
     List<Subject> subjectList;
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+    }
+
     static public boolean isURLReachable(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -106,6 +120,8 @@ public class SubjectFragment extends Fragment {
                 public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                     if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
                         if (CheckInternet(view.getContext())) {
+                            ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                            layout.setVisibility(View.VISIBLE);
                             Navigation.findNavController(requireView()).navigateUp();
                             return true;
                         } else {
@@ -200,12 +216,6 @@ public class SubjectFragment extends Fragment {
                             }
                             moduleDesc.add(s);
                         }
-//                    Handler handler = new Handler();
-//                    handler.postDelayed(new Runnable() {
-//                        public void run() {
-//                            dialog.dismiss();
-//                        }
-//                    }, 3000); // 3000 milliseconds delay
                         ConstraintLayout layout = getActivity().findViewById(R.id.progress);
                         layout.setVisibility(View.GONE);
                         //Diag.removeSimpleProgressDialog();

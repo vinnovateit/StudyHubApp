@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,6 +60,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     List<Course> courseList;
     Integer len;
     String subject;
+
     public boolean isURLReachable(Context context) {
         if(CheckInternet(context)) {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -96,6 +98,7 @@ public class CoursesFragment extends Fragment implements CourseAdapter.OnCourseL
     }
     @Override
     public void onPause(){
+
         super.onPause();
     }
     @Override

@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -50,6 +51,18 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchLi
     List<Search> courseList;
     private EditText searchView;
     LinearLayout no_results;
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+    }
 
     public void hideKeyboard() {
         // Check if no view has focus:
