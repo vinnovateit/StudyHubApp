@@ -182,8 +182,9 @@ public class SubjectFragment extends Fragment {
                                        System.out.println("MODULE:" + modno);
                                        moduleNumber.add("MODULE " + modno);
                                    }
+                                   String NewString1 = NewString.replace("<br>", "");
+                                   moduleDesc.add(NewString1);
 
-                                   moduleDesc.add(NewString);
                                }
                                //  System.out.println("\n");
 
