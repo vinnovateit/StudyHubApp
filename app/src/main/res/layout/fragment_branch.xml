@@ -17,6 +17,17 @@
         android:scaleType="fitCenter"
         android:src="@drawable/sh" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
     <EditText
         android:id="@+id/searchView"
         android:layout_width="260dp"
@@ -67,7 +78,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cse"
                 android:layout_width="wrap_content"
-                android:layout_height="40sp"
+                android:layout_height="40dp"
                 android:layout_row="0"
                 android:layout_rowWeight="1"
                 android:layout_column="0"
@@ -101,7 +112,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/it"
                 android:layout_width="wrap_content"
-                android:layout_height="40sp"
+                android:layout_height="40dp"
                 android:layout_row="0"
                 android:layout_rowWeight="1"
                 android:layout_column="1"
@@ -137,7 +148,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/uc"
                 android:layout_width="wrap_content"
-                android:layout_height="40sp"
+                android:layout_height="40dp"
                 android:layout_row="1"
                 android:layout_rowWeight="1"
                 android:layout_column="0"
@@ -173,7 +184,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/ece"
                 android:layout_width="wrap_content"
-                android:layout_height="40sp"
+                android:layout_height="40dp"
                 android:layout_row="1"
                 android:layout_rowWeight="1"
                 android:layout_column="1"
@@ -208,7 +219,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/eee"
                 android:layout_width="wrap_content"
-                android:layout_height="40sp"
+                android:layout_height="40dp"
                 android:layout_row="2"
                 android:layout_rowWeight="1"
                 android:layout_column="0"
@@ -245,7 +256,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/mech"
                 android:layout_width="wrap_content"
-                android:layout_height="40sp"
+                android:layout_height="40dp"
                 android:layout_row="2"
                 android:layout_rowWeight="1"
                 android:layout_column="1"
@@ -279,6 +290,7 @@
         </GridLayout>
     </RelativeLayout>
 
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -300,7 +312,7 @@
             android:id="@+id/twitter"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_toEndOf="@+id/instagram"
@@ -311,7 +323,7 @@
             android:id="@+id/github"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_toEndOf="@+id/twitter"
@@ -319,4 +331,7 @@
             android:src="@drawable/github" />
     </RelativeLayout>
 
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>
