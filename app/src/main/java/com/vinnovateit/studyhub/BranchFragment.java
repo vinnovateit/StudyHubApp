@@ -61,7 +61,7 @@ import java.util.Scanner;
 
 
 public class BranchFragment extends Fragment {
-    CardView it, cse, uc;
+    CardView it, cse, uc,ece, mech,eee;
     ImageView insta, github, twitter;
     private EditText searchView;
     private long pressedTime;
@@ -134,6 +134,11 @@ public class BranchFragment extends Fragment {
             it = view.findViewById(R.id.it);
             cse = view.findViewById(R.id.cse);
             uc = view.findViewById(R.id.uc);
+            eee = view.findViewById(R.id.eee);
+            ece = view.findViewById(R.id.ece);
+            mech = view.findViewById(R.id.mech);
+
+
 
             searchView=(EditText) view.findViewById(R.id.searchView);
 
@@ -153,12 +158,64 @@ public class BranchFragment extends Fragment {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/vinnovateit"));
                 startActivity(browserIntent);
             });
+
+            ece.setOnClickListener(view16 -> {
+                if (CheckInternet(view.getContext())) {
+                    ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                    layout.setVisibility(View.VISIBLE);
+                    //Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
+                    //    Log.i("internet", "working");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("branch", "/branch/ece");
+                    bundle.putString("name", "ECE");
+                    bundle.putString("subject", "ece");
+                    Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2, bundle);
+                } else {
+                    Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
+                }
+
+            });
+
+            mech.setOnClickListener(view15 -> {
+                if (CheckInternet(view.getContext())) {
+                    ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                    layout.setVisibility(View.VISIBLE);
+                    //Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
+                    //    Log.i("internet", "working");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("branch", "/branch/mech");
+                    bundle.putString("name", "MECH");
+                    bundle.putString("subject", "mech");
+                    Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2, bundle);
+                } else {
+                    Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
+                }
+
+            });
+
+            eee.setOnClickListener(view14 -> {
+                if (CheckInternet(view.getContext())) {
+                    ConstraintLayout layout = getActivity().findViewById(R.id.progress);
+                    layout.setVisibility(View.VISIBLE);
+                    //Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
+                    //    Log.i("internet", "working");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("branch", "/branch/eee");
+                    bundle.putString("name", "EEE");
+                    bundle.putString("subject", "eee");
+                    Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2, bundle);
+                } else {
+                    Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
+                }
+
+            });
+
             it.setOnClickListener(view13 -> {
                 if (CheckInternet(view.getContext())) {
                     ConstraintLayout layout = getActivity().findViewById(R.id.progress);
                     layout.setVisibility(View.VISIBLE);
                     //Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
-               //    Log.i("internet", "working");
+                    //    Log.i("internet", "working");
                     Bundle bundle = new Bundle();
                     bundle.putString("branch", "/branch/it");
                     bundle.putString("name", "IT");
@@ -169,6 +226,8 @@ public class BranchFragment extends Fragment {
                 }
 
             });
+
+
             cse.setOnClickListener(view12 -> {
                 if (CheckInternet(view.getContext())) {
                     ConstraintLayout layout = getActivity().findViewById(R.id.progress);
@@ -183,6 +242,8 @@ public class BranchFragment extends Fragment {
                     Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
                 }
             });
+
+
             uc.setOnClickListener(view1 -> {
                 if (CheckInternet(view.getContext())) {
                     ConstraintLayout layout = getActivity().findViewById(R.id.progress);
@@ -214,7 +275,7 @@ public class BranchFragment extends Fragment {
                                 Bundle bundle = new Bundle();
                                 bundle.putString("search", text);
 
-                                    Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_searchFragment, bundle);
+                                Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_searchFragment, bundle);
                                 searchView.setText("");
                             }
                             else {
