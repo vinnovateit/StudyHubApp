@@ -1,26 +1,21 @@
 package com.vinnovateit.studyhub;
 
-import android.app.Activity;
-import android.app.SearchManager;
+
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
+import android.content.IntentSender;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.SearchView;
+
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.os.Parcelable;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -29,54 +24,94 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
+
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.vinnovateit.studyhub.adapter.CourseAdapter;
-import com.vinnovateit.studyhub.adapter.SearchAdapter;
-import com.vinnovateit.studyhub.model.Course;
-import com.vinnovateit.studyhub.model.Diag;
-import com.vinnovateit.studyhub.model.Search;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.common.IntentSenderForResultStarter;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+import static android.app.Activity.RESULT_OK;
+import static com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE;
 
 
 public class BranchFragment extends Fragment {
-    CardView it, cse, uc,ece, mech,eee;
+    CardView it, cse, uc, ece, mech, eee;
     ImageView insta, github, twitter;
     private EditText searchView;
     private long pressedTime;
+    private static final int RC_APP_UPDATE = 11;
+
+    AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(getActivity());
+
+    private void checkUpdate() {
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(IMMEDIATE)) {
+                startUpdateFlow(appUpdateInfo);
+            } else if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                startUpdateFlow(appUpdateInfo);
+            }
+        });
+    }
+
+    private void startUpdateFlow(AppUpdateInfo appUpdateInfo) {
+        try {
+            appUpdateManager.startUpdateFlowForResult(appUpdateInfo, IMMEDIATE, (IntentSenderForResultStarter) this, RC_APP_UPDATE);
+        } catch (IntentSender.SendIntentException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
-    public void onPause()
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RC_APP_UPDATE) {
+            if (resultCode != RESULT_OK) {
+                Toast.makeText(getActivity(), "Update flow failed! Result code: " + resultCode, Toast.LENGTH_SHORT).show();
+                checkUpdate();
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
+                            if (appUpdateInfo.updateAvailability()
+                                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                                // If an in-app update is already running, resume the update.
+                                try {
+                                    appUpdateManager.startUpdateFlowForResult(
+                                            appUpdateInfo,
+                                            IMMEDIATE,
+                                            (IntentSenderForResultStarter) this,
+                                            RC_APP_UPDATE);
+                                } catch (IntentSender.SendIntentException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+    }
+
+    @Override
+    public void onPause() {
         super.onPause();
     }
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-    }
 
     public void hideKeyboard() {
         // Check if no view has focus:
@@ -89,7 +124,7 @@ public class BranchFragment extends Fragment {
 
 
     public boolean isURLReachable(Context context) {
-        if(CheckInternet(context)) {
+        if (CheckInternet(context)) {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             if (netInfo != null && netInfo.isConnected()) {
@@ -104,9 +139,7 @@ public class BranchFragment extends Fragment {
                     } else {
                         return false;
                     }
-                }catch (MalformedURLException e1) {
-                    return false;
-                }catch (IOException e) {
+                } catch (IOException e1) {
                     return false;
                 }
             }
@@ -115,8 +148,8 @@ public class BranchFragment extends Fragment {
         return true;
 
     }
-    public static boolean CheckInternet(Context context)
-    {
+
+    public static boolean CheckInternet(Context context) {
         ConnectivityManager connec = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         android.net.NetworkInfo wifi = connec.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         android.net.NetworkInfo mobile = connec.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
@@ -129,7 +162,8 @@ public class BranchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_branch,
                 container, false);
-        if(isURLReachable(getContext())) {
+        checkUpdate();
+        if (isURLReachable(getContext())) {
 
             it = view.findViewById(R.id.it);
             cse = view.findViewById(R.id.cse);
@@ -139,8 +173,7 @@ public class BranchFragment extends Fragment {
             mech = view.findViewById(R.id.mech);
 
 
-
-            searchView=(EditText) view.findViewById(R.id.searchView);
+            searchView = (EditText) view.findViewById(R.id.searchView);
 
             insta = view.findViewById(R.id.instagram);
             github = view.findViewById(R.id.github);
@@ -269,7 +302,7 @@ public class BranchFragment extends Fragment {
                             searchView.setError("Cannot be empty");
                         } else {
                             hideKeyboard();
-                            if(CheckInternet(view.getContext())) {
+                            if (CheckInternet(view.getContext())) {
                                 ConstraintLayout layout = getActivity().findViewById(R.id.progress);
                                 layout.setVisibility(View.VISIBLE);
                                 Bundle bundle = new Bundle();
@@ -277,8 +310,7 @@ public class BranchFragment extends Fragment {
 
                                 Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_searchFragment, bundle);
                                 searchView.setText("");
-                            }
-                            else {
+                            } else {
                                 Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
                             }
                         }
@@ -292,26 +324,20 @@ public class BranchFragment extends Fragment {
 
             view.setFocusableInTouchMode(true);
             view.requestFocus();
-            view.setOnKeyListener(new View.OnKeyListener() {
-                @Override
-                public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
-                        if (pressedTime + 3000 > System.currentTimeMillis()) {
-                            getActivity().finish();
-                            return true;
-                        }
-                        else{
-                            Toast.makeText(getContext(),"Press back again to exit!",Toast.LENGTH_SHORT).show();
-                            pressedTime=System.currentTimeMillis();
-                            return true;
-                        }
+            view.setOnKeyListener((view17, keyCode, keyEvent) -> {
+                if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                    if (pressedTime + 3000 > System.currentTimeMillis()) {
+                        getActivity().finish();
+                        return true;
+                    } else {
+                        Toast.makeText(getContext(), "Press back again to exit!", Toast.LENGTH_SHORT).show();
+                        pressedTime = System.currentTimeMillis();
+                        return true;
                     }
-                    return false;
                 }
+                return false;
             });
-        }
-        else
-        {
+        } else {
             Toast.makeText(getContext(), "Server is currently down!", Toast.LENGTH_SHORT).show();
         }
 
