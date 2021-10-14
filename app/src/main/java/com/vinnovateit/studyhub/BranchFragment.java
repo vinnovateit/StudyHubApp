@@ -1,26 +1,17 @@
 package com.vinnovateit.studyhub;
 
-import android.app.Activity;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.os.Parcelable;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -29,39 +20,18 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.vinnovateit.studyhub.adapter.CourseAdapter;
-import com.vinnovateit.studyhub.adapter.SearchAdapter;
-import com.vinnovateit.studyhub.model.Course;
-import com.vinnovateit.studyhub.model.Diag;
-import com.vinnovateit.studyhub.model.Search;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 
 public class BranchFragment extends Fragment {
-    CardView it, cse, uc,ece, mech,eee;
+    CardView it, cse, uc,firstsem, mech,eee;
     ImageView insta, github, twitter;
     private EditText searchView;
     private long pressedTime;
@@ -135,7 +105,7 @@ public class BranchFragment extends Fragment {
             cse = view.findViewById(R.id.cse);
             uc = view.findViewById(R.id.uc);
             eee = view.findViewById(R.id.eee);
-            ece = view.findViewById(R.id.ece);
+            firstsem = view.findViewById(R.id.firstsem);
             mech = view.findViewById(R.id.mech);
 
 
@@ -159,16 +129,16 @@ public class BranchFragment extends Fragment {
                 startActivity(browserIntent);
             });
 
-            ece.setOnClickListener(view16 -> {
+            firstsem.setOnClickListener(view16 -> {
                 if (CheckInternet(view.getContext())) {
                     ConstraintLayout layout = getActivity().findViewById(R.id.progress);
                     layout.setVisibility(View.VISIBLE);
                     //Diag.showSimpleProgressDialog(getContext(),"STUDY HUB","Loading",true);
                     //    Log.i("internet", "working");
                     Bundle bundle = new Bundle();
-                    bundle.putString("branch", "/branch/ece");
-                    bundle.putString("name", "ECE");
-                    bundle.putString("subject", "ece");
+                    bundle.putString("branch", "/branch/firstsem");
+                    bundle.putString("name", "SEM 1");
+                    bundle.putString("subject", "firstsem");
                     Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_coursesFragment2, bundle);
                 } else {
                     Navigation.findNavController(requireView()).navigate(R.id.action_branchFragment_to_internet);
